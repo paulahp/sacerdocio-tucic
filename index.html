@@ -825,7 +825,7 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Obá'], cores: ['#903030'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'qualquer', coroa: false,
+    intervalAfter: 21, moonPref: 'nova', coroa: false,
     obs: 'Sozinho no terreiro. Obá é a Orixá guerreira das águas. Consultar apostila módulo 14 para lista completa de materiais.',
     regras: 'Ver apostila módulo 14 para todos os detalhes e lista completa de materiais.',
     velas: 'Velas de Obá — ver apostila módulo 14',
@@ -861,8 +861,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Exu'], cores: ['#404040'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 1, moonPref: 'nova', coroa: false,
-    obs: 'Sozinho no terreiro. Exu: astro regente Terra — apostila não especifica lua. Lua nova mantida por tradição. Oferendar Orixá Exu + Exu entidade + Pombagira de frente. Padês são obrigatórios. Capa preta necessária.',
+    intervalAfter: 1, moonPref: 'qualquer', coroa: false,
+    obs: 'Sozinho no terreiro. Exu sempre no sábado — Ifá no domingo seguinte. Qualquer lua menos minguante. Oferendar Orixá Exu + Exu entidade + Pombagira de frente. Padês são obrigatórios. Capa preta necessária.',
     regras: '7 velas vermelhas + 7 pretas. Padê obrigatório para os 3. Faca, ponteiro, cordão, pemba. Capa preta para cobrir o corpo inteiro. 21 cigarros longos. 7 cravos vermelhos + 7 rosas s/espinhos.',
     velas: '7 vermelhas nº4 · 7 pretas nº4 · 1 vela 7 dias bicolor verm/preta · 1 cera branca (anjo guarda) · 1 cera branca (Orixá/búzio/otá) · 1 vela por Orixá que recebeu obrigação antes',
     ervas: 'Nó de cachorro, mastruço, losna, saco-saco, sete sangrias, fumo em folha, fedegoso (+ pitada de sal grosso no banho)',
@@ -985,12 +985,46 @@ function getMoon(date) {
   return {icon:'🌘', name:'Minguante', q:'minguante'};
 }
 function moonOk(moon, pref) {
-  if (pref === 'qualquer') return true;
-  if (pref === 'cheia') return moon.q === 'cheia';
-  if (pref === 'nova') return moon.q === 'nova';
-  if (pref === 'crescente') return moon.q === 'crescente';
+  if (pref === 'qualquer') return moon.q !== 'minguante';
+  if (pref === 'cheia') return moon.q === 'cheia' || moon.q === 'crescente';
+  if (pref === 'nova') return moon.q === 'nova' || moon.q === 'crescente';
+  if (pref === 'crescente') return moon.q === 'crescente' || moon.q === 'cheia' || moon.q === 'nova';
   if (pref === 'minguante') return moon.q === 'minguante';
   return true;
+}
+function moonScore(moon, pref) {
+  const q = moon.q;
+  const name = moon.name;
+  if (pref === 'cheia') {
+    if (q === 'cheia') return 4;
+    if (name === 'Gibbosa Crescente') return 3;
+    if (q === 'crescente') return 2;
+    if (q === 'nova') return 1;
+    return 0; // minguante — evitar
+  }
+  if (pref === 'nova') {
+    if (q === 'nova') return 4;
+    if (q === 'crescente') return 3;
+    if (q === 'cheia') return 2;
+    if (name === 'Gibbosa Minguante') return 1;
+    return 0; // minguante — evitar
+  }
+  if (pref === 'crescente') {
+    if (q === 'crescente') return 4;
+    if (q === 'cheia') return 3;
+    if (q === 'nova') return 2;
+    return 0; // minguante — evitar
+  }
+  if (pref === 'minguante') {
+    if (q === 'minguante') return 4;
+    if (name === 'Quarto Minguante') return 5;
+    return 0;
+  }
+  // 'qualquer' = qualquer menos minguante
+  if (q === 'cheia') return 3;
+  if (q === 'crescente') return 3;
+  if (q === 'nova') return 3;
+  return 0; // minguante — evitar
 }
 function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
 function nextSat(from) {
@@ -1000,10 +1034,17 @@ function nextSat(from) {
   return d;
 }
 function chooseSat(from, pref) {
+  if (pref === 'qualquer') return nextSat(from);
+  // Look at next 4 saturdays and pick the one with best moon score
   let d = nextSat(from);
-  if (pref === 'qualquer') return d;
-  for (let i = 0; i < 16; i++) { if (moonOk(getMoon(d), pref)) return d; d = addDays(d, 7); }
-  return nextSat(from);
+  let best = d;
+  let bestScore = -1;
+  for (let i = 0; i < 4; i++) {
+    const score = moonScore(getMoon(d), pref);
+    if (score > bestScore) { bestScore = score; best = d; }
+    d = addDays(d, 7);
+  }
+  return best;
 }
 function fmt(d) { return d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'}); }
 function fmtS(d) { return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'}); }
@@ -1044,13 +1085,29 @@ function buildSchedule(mode) {
   const sch = [];
   let cursor = new Date(2026,3,27);
   ETAPAS_DEF.forEach((e,i) => {
-    const sat = chooseSat(cursor, e.moonPref);
-    const moon = getMoon(sat);
-    const precStart = e.preceito === 3 ? addDays(sat,-3) : addDays(sat,-6);
-    const sun = addDays(sat,1);
+    const isIfa = i === ETAPAS_DEF.length - 1;
+    let sat, moon, precStart, sun;
+
+    if (isIfa) {
+      // Ifá is always the Sunday after Exu's Saturday
+      // sch[i-1] is Exu — use its sat + 1
+      const exuSat = sch[i-1].sat;
+      const ifaSun = addDays(exuSat, 1);
+      sat = ifaSun;   // "sat" here is actually Sunday
+      sun = ifaSun;   // same day, encerra ao meio-dia
+      precStart = sch[i-1].precStart; // same preceito start as Exu
+      moon = getMoon(ifaSun);
+    } else {
+      sat = chooseSat(cursor, e.moonPref);
+      moon = getMoon(sat);
+      precStart = e.preceito === 3 ? addDays(sat,-3) : addDays(sat,-6);
+      sun = addDays(sat,1);
+    }
+
     sch.push({...e, sat, sun, precStart, moon});
+
     if (i < ETAPAS_DEF.length - 1) {
-      if (e.intervalAfter === 1) { cursor = sun; }
+      if (e.intervalAfter === 1) { cursor = sun; } // Exu → just pass sun, but Ifá overrides above
       else { cursor = addDays(mode === 'sat' ? sat : sun, e.intervalAfter); }
     }
   });
@@ -1098,7 +1155,7 @@ function renderOrdem() {
         <div class="detail-grid">
           <div class="di"><div class="dl">Preceito</div><div class="dv">${e.preceito} dias</div></div>
           <div class="di"><div class="dl">Local</div><div class="dv">${e.campo ? '🌿' : '🏠'} ${e.local}</div></div>
-          <div class="di"><div class="dl">Lua ideal</div><div class="dv">${e.moonPref === 'cheia' ? '🌕 Lua cheia' : e.moonPref === 'nova' ? '🌑 Lua nova' : e.moonPref === 'minguante' ? '🌘 Lua minguante' : e.moonPref === 'crescente' ? '🌒 Lua crescente' : '— sem preferência'}</div></div>
+          <div class="di"><div class="dl">Lua ideal</div><div class="dv">${e.moonPref === 'cheia' ? '🌕 Lua cheia' : e.moonPref === 'nova' ? '🌑 Lua nova (menos minguante)' : e.moonPref === 'minguante' ? '🌘 Lua minguante' : e.moonPref === 'crescente' ? '🌒 Lua crescente (menos minguante)' : '🌙 Qualquer menos minguante'}</div></div>
           <div class="di"><div class="dl">Intervalo após</div><div class="dv">${e.intervalAfter === 1 ? 'Dia seguinte (Ifá)' : e.intervalAfter === 0 ? 'Última obrigação' : e.intervalAfter + ' dias'}</div></div>
         </div>
         <div class="detail-full"><div class="dl">Velas</div><div class="dv" style="margin-top:4px;">${e.velas}</div></div>
@@ -1139,11 +1196,18 @@ function renderSchedule(sch, id) {
     const moonBadgeIcon = ok ? '✓' : '⚠';
     const badgeCls = e.campo ? 'badge-campo' : 'badge-terreiro';
     const badgeIcon = e.campo ? '🌿' : '🏠';
+    const isIfa = i === sch.length - 1;
     const precLabel = e.preceito === 3
       ? `Início preceito: ${fmt(e.precStart)} (qui)`
-      : `Início preceito: ${fmt(e.precStart)} (dom)`;
+      : isIfa
+        ? `Preceito contínuo de Exu → ${fmt(e.sat)} (dom)`
+        : `Início preceito: ${fmt(e.precStart)} (dom)`;
     const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' ★' : '');
-    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 Lua cheia — Iemanjá (apostila)' : e.moonPref === 'nova' ? '🌑 Lua nova — Iansã (apostila)' : e.moonPref === 'minguante' ? '🌘 Lua minguante — Nanã (apostila)' : e.moonPref === 'crescente' ? '🌒 Lua crescente — Oxum (apostila)' : '— apostila não especifica';
+    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 Lua cheia — ideal Ogum/Iemanjá' 
+      : e.moonPref === 'nova' ? '🌑 Lua nova — ideal (menos minguante)' 
+      : e.moonPref === 'minguante' ? '🌘 Lua minguante — ideal Nanã/Obaluaê' 
+      : e.moonPref === 'crescente' ? '🌒 Lua crescente — ideal Oxum/Oxóssi' 
+      : '🌙 Qualquer lua menos minguante';
     const ctag = coroaTag(e.coroa);
 
     html += `
@@ -1154,7 +1218,7 @@ function renderSchedule(sch, id) {
         <div class="etapa-info">
           <div class="etapa-name">${nameHtml}${ctag}</div>
           <div class="etapa-meta">${fmtLong(e.sat)}</div>
-          <div class="etapa-meta" style="margin-top:2px;">${precLabel} → <strong style="color:var(--text2);">sáb ${fmtS(e.sat)}</strong></div>
+          <div class="etapa-meta" style="margin-top:2px;">${precLabel} → <strong style="color:var(--text2);">${isIfa ? 'dom' : 'sáb'} ${fmtS(e.sat)}</strong></div>
         </div>
         <div class="etapa-right">
           <div style="font-size:22px;">${moon.icon}</div>
@@ -1165,8 +1229,8 @@ function renderSchedule(sch, id) {
       <div class="etapa-body">
         <div class="detail-grid">
           <div class="di"><div class="dl">Início preceito</div><div class="dv">${fmt(e.precStart)}</div></div>
-          <div class="di"><div class="dl">Dia da obrigação</div><div class="dv">${fmt(e.sat)} (sáb)</div></div>
-          <div class="di"><div class="dl">Encerramento</div><div class="dv">${fmt(e.sun)} ao meio-dia</div></div>
+          <div class="di"><div class="dl">Dia da obrigação</div><div class="dv">${fmt(e.sat)} (${isIfa ? 'dom' : 'sáb'})</div></div>
+          <div class="di"><div class="dl">Encerramento</div><div class="dv">${isIfa ? fmt(e.sat)+' ao meio-dia' : fmt(e.sun)+' ao meio-dia'}</div></div>
           <div class="di"><div class="dl">Fase da lua</div><div class="dv">${moon.icon} ${moon.name}</div></div>
           <div class="di"><div class="dl">Lua ideal</div><div class="dv">${moonPrefLabel}</div></div>
           <div class="di"><div class="dl">Local</div><div class="dv">${badgeIcon} ${e.local}</div></div>
@@ -1197,23 +1261,12 @@ function renderSchedule(sch, id) {
   const campo = sch.filter(e=>e.campo).length;
   const okCount = sch.filter(e=>moonOk(e.moon,e.moonPref)).length;
 
-  const totalSpan = 270;
-  let bars = `<div class="timeline-months">`;
-  ['mai','jun','jul','ago','set','out','nov','dez'].forEach(m => { bars += `<span>${m}</span>`; });
-  bars += `</div><div class="timeline-bar-bg">`;
-  sch.forEach((e,i) => {
-    const offset = Math.round((e.precStart - new Date(2026,4,1))/86400000);
-    const dur = Math.round((e.sun - e.precStart)/86400000);
-    const left = Math.max(0,Math.round(offset/totalSpan*100));
-    const width = Math.max(2,Math.round(dur/totalSpan*100));
-    const nameS = e.names.map(n=>n.replace(' ★','')).join('/');
-    bars += `<div class="timeline-seg" style="left:${left}%;width:${width}%;background:${BAR_COLORS[i]};">${nameS}</div>`;
-  });
-  bars += '</div>';
+  const totalSpan = Math.max(1, Math.round((last - new Date(2026,4,1)) / 86400000) + 30);
+  let bars = '';
 
   html += `<div class="card" style="margin-top:20px;">
     <div class="card-title">Visão geral — 2026</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;">
       <div style="background:var(--bg3);border:0.5px solid rgba(128,80,144,0.3);border-radius:var(--radius);padding:10px 12px;font-size:12px;">
         <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Luciano</div>
         <span style="color:#805090;font-weight:500;">Nanã</span> (frente) &nbsp;·&nbsp; <span style="color:#804020;">Xangô</span> (ajuntó)
@@ -1223,17 +1276,57 @@ function renderSchedule(sch, id) {
         <span style="color:#c84040;font-weight:500;">Ogum</span> (frente) &nbsp;·&nbsp; <span style="color:#3070c0;">Iemanjá</span> (ajuntó)
       </div>
     </div>
-    <div class="timeline-outer">${bars}</div>
-    <div class="summary-boxes">
-      <div class="sum-box"><div class="sum-num">${fmtS(first)}</div><div class="sum-lbl">primeira (Oxalá)</div></div>
-      <div class="sum-box"><div class="sum-num">${fmtS(last)}</div><div class="sum-lbl">última (Exu/Ifá)</div></div>
-      <div class="sum-box"><div class="sum-num">${months}</div><div class="sum-lbl">meses no total</div></div>
-      <div class="sum-box"><div class="sum-num">${campo}</div><div class="sum-lbl">campo sagrado</div></div>
-      <div class="sum-box"><div class="sum-num">${9-campo}</div><div class="sum-lbl">no terreiro</div></div>
-      <div class="sum-box" style="${okCount===9?'border-color:var(--green);':'border-color:var(--amber);'}"><div class="sum-num">${okCount}/9</div><div class="sum-lbl">luas ideais</div></div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>
+        <tr style="border-bottom:0.5px solid var(--border);">
+          <th style="text-align:left;padding:6px 8px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Etapa</th>
+          <th style="text-align:left;padding:6px 8px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Início preceito</th>
+          <th style="text-align:left;padding:6px 8px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Obrigação</th>
+          <th style="text-align:center;padding:6px 8px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Lua</th>
+          <th style="text-align:left;padding:6px 8px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Local</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${sch.map((e,i) => {
+          const isIfa = i === sch.length - 1;
+          const ok = moonOk(e.moon, e.moonPref);
+          const dot = `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${e.cores[0]};margin-right:6px;flex-shrink:0;"></span>`;
+          const corTag = e.coroa === 'voce' ? ' <span style="font-size:10px;color:#c84040;">★P</span>' : e.coroa === 'luciano' ? ' <span style="font-size:10px;color:#805090;">★L</span>' : e.coroa === 'luciano-ajunto' ? ' <span style="font-size:10px;color:#804020;">★L</span>' : '';
+          const obrigDay = isIfa ? fmt(e.sat).replace('sáb','dom') : fmt(e.sat);
+          const precDay = e.preceito === 3 ? fmt(e.precStart) : fmt(e.precStart);
+          return `<tr style="border-bottom:0.5px solid rgba(255,255,255,0.04);">
+            <td style="padding:8px 8px;color:var(--text);white-space:nowrap;">${dot}${e.names.join(' & ')}${corTag}</td>
+            <td style="padding:8px 8px;color:var(--text2);white-space:nowrap;">${precDay}</td>
+            <td style="padding:8px 8px;color:var(--text2);white-space:nowrap;">${isIfa ? fmt(e.sat) + ' (dom)' : fmt(e.sat) + ' (sáb)'}</td>
+            <td style="padding:8px 8px;text-align:center;font-size:15px;" title="${e.moon.name}">${e.moon.icon}${ok ? '' : '<span style="font-size:9px;color:#c09040;margin-left:2px;">⚠</span>'}</td>
+            <td style="padding:8px 8px;color:var(--text3);white-space:nowrap;">${e.campo ? '🌿 ' : '🏠 '}${e.local}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border);">
+      <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px;text-align:center;">
+        <div style="font-size:13px;font-weight:500;color:var(--gold2);">${fmtS(first)}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;">Oxalá</div>
+      </div>
+      <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px;text-align:center;">
+        <div style="font-size:13px;font-weight:500;color:var(--gold2);">${fmtS(last)}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;">Exu / Ifá</div>
+      </div>
+      <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px;text-align:center;">
+        <div style="font-size:13px;font-weight:500;color:var(--gold2);">${months} meses</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;">duração total</div>
+      </div>
+      <div style="background:var(--bg3);border:0.5px solid ${okCount===9?'var(--green)':'var(--amber)'};border-radius:var(--radius);padding:10px;text-align:center;">
+        <div style="font-size:13px;font-weight:500;color:var(--gold2);">${okCount}/9</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px;">luas ideais</div>
+      </div>
     </div>
+
     <div style="margin-top:14px;padding-top:14px;border-top:0.5px solid var(--border);">
-      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.04em;">Exportar todas as obrigações</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.04em;">Exportar todas as obrigações para o Google Calendar</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;" id="gcal-all-${id}"></div>
     </div>
   </div>`;

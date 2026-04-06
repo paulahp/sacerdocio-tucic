@@ -717,10 +717,10 @@ footer .gold-line { margin: 0 auto 16px; }
       </div>
       <div class="cal-grid" id="cal-grid"></div>
       <div class="cal-legend">
-        <div class="cal-legend-item">🌑 Lua Nova — ideal Exu</div>
-        <div class="cal-legend-item">🌒 Crescente</div>
-        <div class="cal-legend-item">🌕 Lua Cheia — ideal Iemanjá / Oxum / Oxalá</div>
-        <div class="cal-legend-item">🌘 Minguante</div>
+        <div class="cal-legend-item">🌑 Lua Nova — Iansã (quarto novo)</div>
+        <div class="cal-legend-item">🌒 Crescente — Oxum (quarto crescente)</div>
+        <div class="cal-legend-item">🌕 Lua Cheia — Iemanjá (quarto cheio)</div>
+        <div class="cal-legend-item">🌘 Minguante — Nanã (quarto minguante)</div>
         <div class="cal-legend-item" style="color:var(--gold);">◈ Hoje</div>
       </div>
     </div>
@@ -739,8 +739,8 @@ footer .gold-line { margin: 0 auto 16px; }
 const ETAPAS_DEF = [
   {
     names: ['Oxalá'], cores: ['#c8c0b0'], preceito: 3, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'cheia', coroa: false,
-    obs: 'Batismo umbandista — a mais importante e a única com apenas 3 dias de preceito. Pode ser realizada em local fechado. Oxalá é o mais compreensivo de todos os Orixás.',
+    intervalAfter: 21, moonPref: 'qualquer', coroa: false,
+    obs: 'Batismo umbandista — a mais importante e a única com apenas 3 dias de preceito. Pode ser realizada em local fechado. Oxalá é o mais compreensivo de todos os Orixás. Astro regente: Sol — a apostila não especifica fase lunar.',
     regras: 'Amaci de Oxalá consagrado, banha de ori, sal grosso, água do mar, água de cachoeira, espadas de São Jorge, concha marinha.',
     velas: '7 brancas nº4 · 1 cera branca (Orixá) · 1 cera branca (búzio/otá) · 1 bicolor verm/preta (Exu)',
     ervas: 'Alecrim, arruda, erva-cidreira, guiné, hortelã, manjericão, poejo, sálvia, boldo, camomila, alevante, algodão',
@@ -751,8 +751,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Oxum', 'Oxóssi'], cores: ['#c09030', '#507040'], preceito: 7, local: 'Cachoeira', campo: true,
-    intervalAfter: 21, moonPref: 'cheia', coroa: false,
-    obs: 'Os dois no mesmo dia, na cachoeira. Primeiro Oxum, depois Oxóssi. Calcular tempo: cada obrigação = 30 min ajoelhado + 60–90 min deitado.',
+    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    obs: 'Os dois no mesmo dia, na cachoeira. Primeiro Oxum, depois Oxóssi. Oxum: astro regente Lua no quarto crescente (apostila). Oxóssi: astro regente Vênus — apostila não especifica lua. Calcular tempo: cada obrigação = 30 min ajoelhado + 60–90 min deitado.',
     regras: 'Banho e defumação: mínimo 3 ervas de Oxum + 3 de Oxóssi. Oxum: mel, champanhe. Oxóssi: frutas e ervas da mata.',
     velas: 'Oxum: douradas/amarelas + brancas · Oxóssi: 7 verdes nº4 + 7 brancas nº4',
     ervas: 'Oxum: ervas de Oxum · Oxóssi: ervas da mata — ver apostila',
@@ -763,8 +763,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
-    intervalAfter: 30, moonPref: 'nova', coroa: false,
-    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Sem adornos de qualquer tipo, sem maquiagem, cabelos soltos. Roupa branca integral.',
+    intervalAfter: 30, moonPref: 'minguante', coroa: false,
+    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Nanã: astro regente Lua no quarto minguante (apostila). Obaluaê: astro regente não especificado na apostila. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral.',
     regras: 'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho. Toalha branca para se enxugar.',
     velas: 'Nanã: violeta/roxas + brancas · Obaluaê: brancas + pretas — ver apostila módulo 18',
     ervas: 'Ervas de Nanã e de Obaluaê — ver apostila módulos 17 e 18',
@@ -775,7 +775,7 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Ibeji'], cores: ['#c07080'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    intervalAfter: 21, moonPref: 'qualquer', coroa: false,
     obs: 'Sozinho no terreiro. São Cosme e Damião — energia leve, alegre. Preceito igualmente rigoroso.',
     regras: 'Oferendas: doces, pipoca, frutas, balas, refrigerante, suco. Energia de criança mas fundamento sério.',
     velas: 'Rosas e brancas — ver apostila módulo 27',
@@ -787,7 +787,7 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Obá'], cores: ['#903030'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    intervalAfter: 21, moonPref: 'qualquer', coroa: false,
     obs: 'Sozinho no terreiro. Obá é a Orixá guerreira das águas. Consultar apostila módulo 14 para lista completa de materiais.',
     regras: 'Ver apostila módulo 14 para todos os detalhes e lista completa de materiais.',
     velas: 'Velas de Obá — ver apostila módulo 14',
@@ -799,8 +799,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Iansã', 'Xangô'], cores: ['#c07820', '#804020'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'crescente', coroa: false,
-    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô.',
+    intervalAfter: 21, moonPref: 'nova', coroa: false,
+    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô. Iansã: astro regente Lua no quarto novo (apostila). Xangô: astro regente Júpiter — apostila não especifica lua.',
     regras: 'Banho e defumação: 3 ervas de Iansã + 3 de Xangô. Xangô: 2 latas Caracu, quiabo (100g), mel, lírio.',
     velas: 'Iansã: amarelas + brancas · Xangô: 7 marrom nº4 + 7 branca nº4 + 1 cera branca + 1 bicolor (Exu)',
     ervas: 'Iansã: ervas de Iansã · Xangô: ervas de Xangô — ver apostila',
@@ -824,7 +824,7 @@ const ETAPAS_DEF = [
   {
     names: ['Exu'], cores: ['#404040'], preceito: 7, local: 'Terreiro', campo: false,
     intervalAfter: 1, moonPref: 'nova', coroa: false,
-    obs: 'Sozinho no terreiro. Lua nova ideal. Oferendar Orixá Exu + Exu entidade + Pombagira de frente. Padês são obrigatórios. Capa preta necessária.',
+    obs: 'Sozinho no terreiro. Exu: astro regente Terra — apostila não especifica lua. Lua nova mantida por tradição. Oferendar Orixá Exu + Exu entidade + Pombagira de frente. Padês são obrigatórios. Capa preta necessária.',
     regras: '7 velas vermelhas + 7 pretas. Padê obrigatório para os 3. Faca, ponteiro, cordão, pemba. Capa preta para cobrir o corpo inteiro. 21 cigarros longos. 7 cravos vermelhos + 7 rosas s/espinhos.',
     velas: '7 vermelhas nº4 · 7 pretas nº4 · 1 vela 7 dias bicolor verm/preta · 1 cera branca (anjo guarda) · 1 cera branca (Orixá/búzio/otá) · 1 vela por Orixá que recebeu obrigação antes',
     ervas: 'Nó de cachorro, mastruço, losna, saco-saco, sete sangrias, fumo em folha, fedegoso (+ pitada de sal grosso no banho)',
@@ -947,9 +947,11 @@ function getMoon(date) {
   return {icon:'🌘', name:'Minguante', q:'minguante'};
 }
 function moonOk(moon, pref) {
-  if (pref === 'cheia') return moon.q === 'cheia' || moon.q === 'crescente';
-  if (pref === 'nova') return moon.q === 'nova' || moon.q === 'crescente';
-  if (pref === 'crescente') return moon.q === 'crescente' || moon.q === 'cheia';
+  if (pref === 'qualquer') return true;
+  if (pref === 'cheia') return moon.q === 'cheia';
+  if (pref === 'nova') return moon.q === 'nova';
+  if (pref === 'crescente') return moon.q === 'crescente';
+  if (pref === 'minguante') return moon.q === 'minguante';
   return true;
 }
 function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
@@ -961,6 +963,7 @@ function nextSat(from) {
 }
 function chooseSat(from, pref) {
   let d = nextSat(from);
+  if (pref === 'qualquer') return d;
   for (let i = 0; i < 16; i++) { if (moonOk(getMoon(d), pref)) return d; d = addDays(d, 7); }
   return nextSat(from);
 }
@@ -1021,7 +1024,7 @@ function renderOrdem() {
         <div class="detail-grid">
           <div class="di"><div class="dl">Preceito</div><div class="dv">${e.preceito} dias</div></div>
           <div class="di"><div class="dl">Local</div><div class="dv">${e.campo ? '🌿' : '🏠'} ${e.local}</div></div>
-          <div class="di"><div class="dl">Lua ideal</div><div class="dv">${e.moonPref === 'cheia' ? '🌕 Lua cheia' : e.moonPref === 'nova' ? '🌑 Lua nova' : '🌒 Crescente'}</div></div>
+          <div class="di"><div class="dl">Lua ideal</div><div class="dv">${e.moonPref === 'cheia' ? '🌕 Lua cheia' : e.moonPref === 'nova' ? '🌑 Lua nova' : e.moonPref === 'minguante' ? '🌘 Lua minguante' : e.moonPref === 'crescente' ? '🌒 Lua crescente' : '— sem preferência'}</div></div>
           <div class="di"><div class="dl">Intervalo após</div><div class="dv">${e.intervalAfter === 1 ? 'Dia seguinte (Ifá)' : e.intervalAfter === 0 ? 'Última obrigação' : e.intervalAfter + ' dias'}</div></div>
         </div>
         <div class="detail-full"><div class="dl">Velas</div><div class="dv" style="margin-top:4px;">${e.velas}</div></div>
@@ -1066,7 +1069,7 @@ function renderSchedule(sch, id) {
       ? `Início preceito: ${fmt(e.precStart)} (qui)`
       : `Início preceito: ${fmt(e.precStart)} (dom)`;
     const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' ★' : '');
-    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 ideal: lua cheia' : e.moonPref === 'nova' ? '🌑 ideal: lua nova' : '🌒 ideal: crescente';
+    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 Lua cheia (Iemanjá)' : e.moonPref === 'nova' ? '🌑 Lua nova (Iansã)' : e.moonPref === 'minguante' ? '🌘 Lua minguante (Nanã)' : e.moonPref === 'crescente' ? '🌒 Lua crescente (Oxum)' : '— apostila não especifica';
 
     html += `
     <div class="etapa" id="${id}et${i}">

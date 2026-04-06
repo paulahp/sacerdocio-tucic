@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sacerdócio de Umbanda — Organizador</title>
+<!-- dois sacerdotes: você (Ogum/Iemanjá) e Luciano (Nanã/Xangô) -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
 :root {
@@ -571,6 +572,27 @@ header h1 em { font-style: italic; color: var(--text); }
 }
 .sum-lbl { font-size: 10px; color: var(--text3); margin-top: 4px; letter-spacing: 0.05em; }
 
+/* GOOGLE CALENDAR BTN */
+.gcal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  border: 0.5px solid rgba(66,133,244,0.4);
+  background: rgba(66,133,244,0.1);
+  color: #6aacf8;
+  font-family: 'Jost', 'Trebuchet MS', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.gcal-btn:hover { background: rgba(66,133,244,0.2); border-color: rgba(66,133,244,0.6); }
+.gcal-btn svg { flex-shrink: 0; }
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .detail-grid { grid-template-columns: 1fr; }
@@ -598,10 +620,23 @@ footer .gold-line { margin: 0 auto 16px; }
     <div class="header-ornament">☽ &nbsp; Umbanda &nbsp; ☾</div>
     <h1>Sacerdócio<br><em>de Umbanda</em></h1>
     <div class="header-sub">Organizador de Obrigações</div>
-    <div class="coroa-badge">
-      <span style="color:#c84040;">Ogum</span> — Orixá de frente
-      <div class="divider-line"></div>
-      <span style="color:#4080c8;">Iemanjá</span> — Ajuntó
+
+    <div style="display:flex;gap:10px;align-items:stretch;justify-content:center;margin-top:18px;flex-wrap:wrap;">
+      <div class="coroa-badge" style="justify-content:center;flex:1;min-width:160px;max-width:220px;">
+        <div style="text-align:center;">
+          <div style="font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Luciano</div>
+          <div><span style="color:#805090;font-weight:500;">Nanã</span> &nbsp;·&nbsp; <span style="color:#804020;">Xangô</span></div>
+          <div style="font-size:10px;color:var(--text3);margin-top:3px;">frente &nbsp;·&nbsp; ajuntó</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;color:var(--text3);font-size:18px;">&#38;</div>
+      <div class="coroa-badge" style="justify-content:center;flex:1;min-width:160px;max-width:220px;">
+        <div style="text-align:center;">
+          <div style="font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Paula</div>
+          <div><span style="color:#c84040;font-weight:500;">Ogum</span> &nbsp;·&nbsp; <span style="color:#4080c8;">Iemanjá</span></div>
+          <div style="font-size:10px;color:var(--text3);margin-top:3px;">frente &nbsp;·&nbsp; ajuntó</div>
+        </div>
+      </div>
     </div>
     <div class="gold-line"></div>
   </header>
@@ -696,6 +731,9 @@ footer .gold-line { margin: 0 auto 16px; }
 
   <!-- CHECKLIST -->
   <div id="sec-checklist" class="section">
+    <div style="background:var(--bg3);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text2);line-height:1.6;">
+      ⚠ Lembrete: vocês são <strong style="color:var(--text);">dois sacerdotes</strong>. Todos os materiais listados devem ser comprados <strong style="color:var(--text);">em dobro</strong> — um conjunto para Paula (Ogum/Iemanjá) e um para o Luciano (Nanã/Xangô). As toalhas e fios-de-contas são individuais e devem ser feitos separadamente por cada sacerdote.
+    </div>
     <div class="prog-wrap">
       <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
       <div class="prog-text" id="prog-text">0 de 0 itens marcados</div>
@@ -728,7 +766,7 @@ footer .gold-line { margin: 0 auto 16px; }
 
   <footer>
     <div class="gold-line"></div>
-    Que Ogum abra os caminhos e Iemanjá abençoe cada passo desta jornada
+    Que Ogum e Nanã abram os caminhos · Que Iemanjá e Xangô abençoem Paula e Luciano nesta jornada
   </footer>
 </div>
 
@@ -763,8 +801,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
-    intervalAfter: 30, moonPref: 'minguante', coroa: false,
-    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Nanã: astro regente Lua no quarto minguante (apostila). Obaluaê: astro regente não especificado na apostila. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral.',
+    intervalAfter: 30, moonPref: 'minguante', coroa: 'luciano',
+    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Nanã: astro regente Lua no quarto minguante (apostila) — Orixá de frente do Luciano. Obaluaê: astro regente não especificado na apostila. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral.',
     regras: 'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho. Toalha branca para se enxugar.',
     velas: 'Nanã: violeta/roxas + brancas · Obaluaê: brancas + pretas — ver apostila módulo 18',
     ervas: 'Ervas de Nanã e de Obaluaê — ver apostila módulos 17 e 18',
@@ -799,8 +837,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Iansã', 'Xangô'], cores: ['#c07820', '#804020'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'nova', coroa: false,
-    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô. Iansã: astro regente Lua no quarto novo (apostila). Xangô: astro regente Júpiter — apostila não especifica lua.',
+    intervalAfter: 21, moonPref: 'nova', coroa: 'luciano-ajunto',
+    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô. Iansã: astro regente Lua no quarto novo (apostila). Xangô: astro regente Júpiter — Orixá ajuntó do Luciano.',
     regras: 'Banho e defumação: 3 ervas de Iansã + 3 de Xangô. Xangô: 2 latas Caracu, quiabo (100g), mel, lírio.',
     velas: 'Iansã: amarelas + brancas · Xangô: 7 marrom nº4 + 7 branca nº4 + 1 cera branca + 1 bicolor (Exu)',
     ervas: 'Iansã: ervas de Iansã · Xangô: ervas de Xangô — ver apostila',
@@ -811,8 +849,8 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Ogum', 'Iemanjá'], cores: ['#c03030', '#3070c0'], preceito: 7, local: 'Praia', campo: true,
-    intervalAfter: 21, moonPref: 'cheia', coroa: true,
-    obs: 'Seus Orixás de coroa! A obrigação mais pessoal e significativa de todo o sacerdócio. Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia.',
+    intervalAfter: 21, moonPref: 'cheia', coroa: 'voce',
+    obs: 'Seus Orixás de coroa! A obrigação mais pessoal e significativa de todo o sacerdócio. Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia. Iemanjá: astro regente Lua no quarto cheio (apostila).',
     regras: 'Ervas: prioridade para Ogum (Orixá de frente). Lua cheia favorece fortemente Iemanjá. Praia: ir ao final do dia. Água do mar pode ser coletada no próprio local.',
     velas: 'Ogum: 7 vermelhas nº4 + 7 brancas + 1 cera branca (Orixá) + 1 cera branca (búzio) + 1 bicolor (Exu) · Iemanjá: azul claro + brancas',
     ervas: 'Ogum: ervas de Ogum · Iemanjá: ervas de Iemanjá — ver apostila',
@@ -972,11 +1010,39 @@ function fmtS(d) { return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'sho
 function fmtLong(d) { return d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); }
 
 // ═══════════════════════════════════════════════
+// GOOGLE CALENDAR
+// ═══════════════════════════════════════════════
+function toGCalDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}${m}${day}`;
+}
+
+function gcalUrl(e) {
+  const title = encodeURIComponent(`Sacerdócio — Obrigação: ${e.names.join(' & ')}`);
+  const start = toGCalDate(e.precStart);
+  const end = toGCalDate(addDays(e.sun, 1));
+  const local = encodeURIComponent(e.local);
+  const details = encodeURIComponent(
+    `Obrigação para ${e.names.join(' e ')} — Luciano & Paula\n\n` +
+    `Local: ${e.local}\n` +
+    `Preceito: ${e.preceito} dias\n` +
+    `Lua: ${e.moon.icon} ${e.moon.name}\n\n` +
+    `Início do preceito: ${fmt(e.precStart)}\n` +
+    `Dia da obrigação: ${fmt(e.sat)}\n` +
+    `Encerramento: ${fmt(e.sun)} ao meio-dia\n\n` +
+    `${e.obs}`
+  );
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${local}`;
+}
+
+// ═══════════════════════════════════════════════
 // SCHEDULE
 // ═══════════════════════════════════════════════
 function buildSchedule(mode) {
   const sch = [];
-  let cursor = new Date(2025,3,28);
+  let cursor = new Date(2026,3,27);
   ETAPAS_DEF.forEach((e,i) => {
     const sat = chooseSat(cursor, e.moonPref);
     const moon = getMoon(sat);
@@ -997,15 +1063,23 @@ const schB = buildSchedule('sun');
 // ═══════════════════════════════════════════════
 // RENDER ORDEM
 // ═══════════════════════════════════════════════
+function coroaTag(coroa) {
+  if (coroa === 'voce') return '<span style="font-size:11px;color:#c84040;margin-left:6px;letter-spacing:0.03em;">★ coroa da Paula — Ogum/Iemanjá</span>';
+  if (coroa === 'luciano') return '<span style="font-size:11px;color:#805090;margin-left:6px;letter-spacing:0.03em;">★ coroa do Luciano — Nanã</span>';
+  if (coroa === 'luciano-ajunto') return '<span style="font-size:11px;color:#804020;margin-left:6px;letter-spacing:0.03em;">★ ajuntó do Luciano — Xangô</span>';
+  return '';
+}
+
 function renderOrdem() {
   const cont = document.getElementById('etapas-container');
   let html = '';
   ETAPAS_DEF.forEach((e,i) => {
     const corMain = e.cores[0];
-    const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' <span style="color:var(--gold);font-size:13px;font-family:sans-serif;">★</span>' : '');
+    const star = e.coroa ? ' ★' : '';
+    const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' <span style="font-size:13px;font-family:sans-serif;color:var(--gold);">★</span>' : '');
     const badgeCls = e.campo ? 'badge-campo' : 'badge-terreiro';
     const badgeIcon = e.campo ? '🌿' : '🏠';
-    const coroa = e.coroa ? '<span style="font-size:11px;color:var(--gold);margin-left:6px;letter-spacing:0.04em;">seus Orixás de coroa</span>' : '';
+    const ctag = coroaTag(e.coroa);
 
     html += `
     <div class="etapa" id="et${i}">
@@ -1013,7 +1087,7 @@ function renderOrdem() {
         <div class="etapa-seq">0${i+1}</div>
         <div class="etapa-dot" style="background:${corMain};box-shadow:0 0 8px ${corMain}44;"></div>
         <div class="etapa-info">
-          <div class="etapa-name">${nameHtml}${coroa}</div>
+          <div class="etapa-name">${nameHtml}${ctag}</div>
           <div class="etapa-meta">${e.local} &nbsp;·&nbsp; ${e.preceito} dias de preceito &nbsp;·&nbsp; ${e.campo ? 'campo sagrado' : 'terreiro'}</div>
         </div>
         <div class="etapa-right">
@@ -1069,7 +1143,8 @@ function renderSchedule(sch, id) {
       ? `Início preceito: ${fmt(e.precStart)} (qui)`
       : `Início preceito: ${fmt(e.precStart)} (dom)`;
     const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' ★' : '');
-    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 Lua cheia (Iemanjá)' : e.moonPref === 'nova' ? '🌑 Lua nova (Iansã)' : e.moonPref === 'minguante' ? '🌘 Lua minguante (Nanã)' : e.moonPref === 'crescente' ? '🌒 Lua crescente (Oxum)' : '— apostila não especifica';
+    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 Lua cheia — Iemanjá (apostila)' : e.moonPref === 'nova' ? '🌑 Lua nova — Iansã (apostila)' : e.moonPref === 'minguante' ? '🌘 Lua minguante — Nanã (apostila)' : e.moonPref === 'crescente' ? '🌒 Lua crescente — Oxum (apostila)' : '— apostila não especifica';
+    const ctag = coroaTag(e.coroa);
 
     html += `
     <div class="etapa" id="${id}et${i}">
@@ -1077,7 +1152,7 @@ function renderSchedule(sch, id) {
         <div class="etapa-seq">0${i+1}</div>
         <div class="etapa-dot" style="background:${e.cores[0]};box-shadow:0 0 8px ${e.cores[0]}44;"></div>
         <div class="etapa-info">
-          <div class="etapa-name">${nameHtml}</div>
+          <div class="etapa-name">${nameHtml}${ctag}</div>
           <div class="etapa-meta">${fmtLong(e.sat)}</div>
           <div class="etapa-meta" style="margin-top:2px;">${precLabel} → <strong style="color:var(--text2);">sáb ${fmtS(e.sat)}</strong></div>
         </div>
@@ -1098,6 +1173,12 @@ function renderSchedule(sch, id) {
         </div>
         <div class="detail-full" style="margin-top:8px;"><div class="dl">Observação</div><div class="dv" style="margin-top:4px;">${e.obs}</div></div>
         <div class="detail-full" style="margin-top:6px;"><div class="dl">Regras especiais</div><div class="dv" style="margin-top:4px;">${e.regras}</div></div>
+        <div style="margin-top:12px;">
+          <a class="gcal-btn" href="${gcalUrl(e)}" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#6aacf8" stroke-width="1.5"/><path d="M3 9h18" stroke="#6aacf8" stroke-width="1.5"/><path d="M8 2v4M16 2v4" stroke="#6aacf8" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Adicionar ao Google Calendar
+          </a>
+        </div>
       </div>
     </div>`;
 
@@ -1121,7 +1202,7 @@ function renderSchedule(sch, id) {
   ['mai','jun','jul','ago','set','out','nov','dez'].forEach(m => { bars += `<span>${m}</span>`; });
   bars += `</div><div class="timeline-bar-bg">`;
   sch.forEach((e,i) => {
-    const offset = Math.round((e.precStart - new Date(2025,4,1))/86400000);
+    const offset = Math.round((e.precStart - new Date(2026,4,1))/86400000);
     const dur = Math.round((e.sun - e.precStart)/86400000);
     const left = Math.max(0,Math.round(offset/totalSpan*100));
     const width = Math.max(2,Math.round(dur/totalSpan*100));
@@ -1131,7 +1212,17 @@ function renderSchedule(sch, id) {
   bars += '</div>';
 
   html += `<div class="card" style="margin-top:20px;">
-    <div class="card-title">Visão geral</div>
+    <div class="card-title">Visão geral — 2026</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+      <div style="background:var(--bg3);border:0.5px solid rgba(128,80,144,0.3);border-radius:var(--radius);padding:10px 12px;font-size:12px;">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Luciano</div>
+        <span style="color:#805090;font-weight:500;">Nanã</span> (frente) &nbsp;·&nbsp; <span style="color:#804020;">Xangô</span> (ajuntó)
+      </div>
+      <div style="background:var(--bg3);border:0.5px solid rgba(200,64,64,0.3);border-radius:var(--radius);padding:10px 12px;font-size:12px;">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Paula</div>
+        <span style="color:#c84040;font-weight:500;">Ogum</span> (frente) &nbsp;·&nbsp; <span style="color:#3070c0;">Iemanjá</span> (ajuntó)
+      </div>
+    </div>
     <div class="timeline-outer">${bars}</div>
     <div class="summary-boxes">
       <div class="sum-box"><div class="sum-num">${fmtS(first)}</div><div class="sum-lbl">primeira (Oxalá)</div></div>
@@ -1141,9 +1232,27 @@ function renderSchedule(sch, id) {
       <div class="sum-box"><div class="sum-num">${9-campo}</div><div class="sum-lbl">no terreiro</div></div>
       <div class="sum-box" style="${okCount===9?'border-color:var(--green);':'border-color:var(--amber);'}"><div class="sum-num">${okCount}/9</div><div class="sum-lbl">luas ideais</div></div>
     </div>
+    <div style="margin-top:14px;padding-top:14px;border-top:0.5px solid var(--border);">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.04em;">Exportar todas as obrigações</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;" id="gcal-all-${id}"></div>
+    </div>
   </div>`;
 
   cont.innerHTML = html;
+
+  // populate export-all buttons
+  const gcalAll = document.getElementById('gcal-all-'+id);
+  if (gcalAll) {
+    sch.forEach(e => {
+      const a = document.createElement('a');
+      a.className = 'gcal-btn';
+      a.href = gcalUrl(e);
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#6aacf8" stroke-width="1.5"/><path d="M3 9h18" stroke="#6aacf8" stroke-width="1.5"/><path d="M8 2v4M16 2v4" stroke="#6aacf8" stroke-width="1.5" stroke-linecap="round"/></svg> ${e.names.join('/')}`;
+      gcalAll.appendChild(a);
+    });
+  }
 }
 
 function toggleEtSch(id) { document.getElementById(id).classList.toggle('open'); }
@@ -1183,7 +1292,7 @@ function toggleCl(k) {
 // ═══════════════════════════════════════════════
 // LUNAR CALENDAR
 // ═══════════════════════════════════════════════
-let calYear = 2025, calMonth = 4;
+let calYear = 2026, calMonth = 4;
 
 function renderLunar() {
   const today = new Date();

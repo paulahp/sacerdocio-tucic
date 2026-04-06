@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sacerdócio de Umbanda — Organizador</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+:root {
+  --bg: #0e0c0a;
+  --bg2: #161310;
+  --bg3: #1e1a16;
+  --bg4: #252018;
+  --border: rgba(180,140,60,0.18);
+  --border2: rgba(180,140,60,0.35);
+  --gold: #c8a04a;
+  --gold2: #e8c878;
+  --gold-dim: rgba(200,160,74,0.15);
+  --text: #e8e0d0;
+  --text2: #a09080;
+  --text3: #6a5a4a;
+  --red: #c84040;
+  --blue: #4080c8;
+  --purple: #9060c0;
+  --green: #407050;
+  --teal: #408080;
+  --pink: #c06080;
+  --amber: #c08030;
+  --gray: #707070;
+  --white: #d0c8b8;
+  --radius: 8px;
+  --radius-lg: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Jost', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+/* HEADER */
+header {
+  padding: 60px 0 40px;
+  text-align: center;
+  position: relative;
+}
+
+.header-ornament {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+header h1 {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: clamp(36px, 6vw, 54px);
+  font-weight: 500;
+  color: var(--gold2);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+header h1 em { font-style: italic; color: var(--text); }
+
+.header-sub {
+  font-size: 13px;
+  color: var(--text2);
+  letter-spacing: 0.05em;
+}
+
+.coroa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 8px 20px;
+  border: 0.5px solid var(--border2);
+  border-radius: 40px;
+  background: var(--gold-dim);
+  font-size: 12px;
+  color: var(--text2);
+  letter-spacing: 0.05em;
+}
+.coroa-badge span { color: var(--gold); font-weight: 500; }
+.divider-line {
+  width: 1px;
+  height: 14px;
+  background: var(--border2);
+}
+
+.gold-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 24px auto;
+}
+
+/* NAV TABS */
+.nav {
+  display: flex;
+  gap: 2px;
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-family: 'Jost', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.nav-btn:hover { color: var(--text); background: var(--bg3); }
+.nav-btn.active {
+  background: var(--gold-dim);
+  color: var(--gold2);
+  border: 0.5px solid var(--border2);
+}
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* CARDS */
+.card {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gold2);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-title::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ETAPAS */
+.etapa {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.etapa:hover { border-color: var(--border2); }
+.etapa.open { border-color: var(--gold); }
+
+.etapa-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.etapa-seq {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  min-width: 18px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.etapa-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.etapa-info { flex: 1; }
+
+.etapa-name {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+}
+.etapa-name .star { color: var(--gold); font-size: 13px; }
+
+.etapa-meta {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 3px;
+  letter-spacing: 0.03em;
+}
+
+.etapa-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.moon-icon { font-size: 20px; }
+
+.badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+.badge-campo { background: rgba(60,100,60,0.3); color: #80c080; border: 0.5px solid rgba(60,120,60,0.4); }
+.badge-terreiro { background: rgba(100,80,40,0.3); color: var(--gold); border: 0.5px solid var(--border); }
+.badge-ok { background: rgba(60,100,60,0.2); color: #80c080; }
+.badge-warn { background: rgba(180,120,20,0.2); color: #c09040; }
+
+.etapa-body {
+  display: none;
+  padding: 0 20px 20px;
+  border-top: 0.5px solid var(--border);
+}
+.etapa.open .etapa-body { display: block; }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+  margin-top: 14px;
+}
+
+.di {
+  background: var(--bg3);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  border: 0.5px solid var(--border);
+}
+.dl {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.dv {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.detail-full {
+  background: var(--bg3);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  border: 0.5px solid var(--border);
+  margin-top: 8px;
+}
+
+.moon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+}
+
+.connector {
+  display: flex;
+  align-items: stretch;
+  padding: 0 0 0 20px;
+}
+.conn-line {
+  width: 1px;
+  background: var(--border);
+  margin-left: 24px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.conn-label {
+  font-size: 11px;
+  color: var(--text3);
+  padding: 5px 0;
+  align-self: center;
+  letter-spacing: 0.05em;
+}
+
+/* PRECEITOS */
+.rule-block {
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+}
+.rule-block h3 {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: 17px;
+  color: var(--gold2);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.rule-item {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 0.5px solid var(--border);
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-item::before { content: '◆'; color: var(--gold); font-size: 7px; flex-shrink: 0; margin-top: 5px; }
+
+/* CHECKLIST */
+.cl-group { margin-bottom: 20px; }
+.cl-group-title {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--border);
+}
+.cl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.cl-item:hover { color: var(--text); }
+.cl-item.done { color: var(--text3); text-decoration: line-through; }
+.cl-item input[type=checkbox] { display: none; }
+.cl-check {
+  width: 16px;
+  height: 16px;
+  border: 0.5px solid var(--border2);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  background: transparent;
+}
+.cl-item.done .cl-check {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+.cl-item.done .cl-check::after { content: '✓'; font-size: 10px; color: var(--gold); }
+.prog-wrap { margin-bottom: 20px; }
+.prog-bar {
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.prog-text { font-size: 12px; color: var(--text3); }
+
+/* LUNAR CALENDAR */
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.cal-nav button {
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  color: var(--text2);
+  padding: 6px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: 'Jost', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.cal-nav button:hover { border-color: var(--border2); color: var(--text); }
+.cal-month-title {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: 20px;
+  color: var(--gold2);
+  font-weight: 500;
+}
+.cal-week-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  margin-bottom: 4px;
+}
+.cal-wh {
+  text-align: center;
+  font-size: 10px;
+  color: var(--text3);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 4px 0;
+}
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-day {
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 3px;
+  text-align: center;
+  min-height: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: border-color 0.15s;
+}
+.cal-day.empty { background: transparent; border-color: transparent; }
+.cal-day.today { border-color: var(--gold); background: var(--gold-dim); }
+.cal-day.lua-nova { background: rgba(20,15,10,0.8); border-color: rgba(100,80,40,0.4); }
+.cal-day.lua-cheia { background: rgba(200,160,74,0.1); border-color: rgba(200,160,74,0.4); }
+.cal-day .cdn { font-size: 12px; font-weight: 500; color: var(--text); }
+.cal-day .cmi { font-size: 16px; }
+.cal-day .cms { font-size: 9px; color: var(--text3); line-height: 1.2; }
+.cal-day.today .cdn { color: var(--gold); }
+.cal-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text3);
+}
+.cal-legend-item { display: flex; align-items: center; gap: 5px; }
+
+/* CALENDÁRIO TABS */
+.cal-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--bg3);
+  padding: 4px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+}
+.cal-tab {
+  flex: 1;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text3);
+  font-family: 'Jost', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.cal-tab.active {
+  background: var(--gold-dim);
+  color: var(--gold2);
+  border: 0.5px solid var(--border2);
+}
+
+/* TIMELINE BAR */
+.timeline-outer { position: relative; margin: 20px 0; }
+.timeline-months {
+  display: flex;
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 5px;
+  letter-spacing: 0.05em;
+}
+.timeline-months span { flex: 1; text-align: center; }
+.timeline-bar-bg {
+  height: 28px;
+  background: var(--bg3);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  border: 0.5px solid var(--border);
+}
+.timeline-seg {
+  position: absolute;
+  top: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.85);
+  overflow: hidden; white-space: nowrap; padding: 0 3px;
+  letter-spacing: 0.03em;
+}
+
+.summary-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+.sum-box {
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 10px;
+  text-align: center;
+}
+.sum-num {
+  font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold2);
+  line-height: 1;
+}
+.sum-lbl { font-size: 10px; color: var(--text3); margin-top: 4px; letter-spacing: 0.05em; }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .detail-grid { grid-template-columns: 1fr; }
+  header h1 { font-size: 32px; }
+  .cal-day { min-height: 50px; }
+  .cal-day .cmi { font-size: 13px; }
+  .summary-boxes { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px 0 60px;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+footer .gold-line { margin: 0 auto 16px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-ornament">☽ &nbsp; Umbanda &nbsp; ☾</div>
+    <h1>Sacerdócio<br><em>de Umbanda</em></h1>
+    <div class="header-sub">Organizador de Obrigações</div>
+    <div class="coroa-badge">
+      <span style="color:#c84040;">Ogum</span> — Orixá de frente
+      <div class="divider-line"></div>
+      <span style="color:#4080c8;">Iemanjá</span> — Ajuntó
+    </div>
+    <div class="gold-line"></div>
+  </header>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('ordem')">Ordem</button>
+    <button class="nav-btn" onclick="showSection('calendario')">Calendário</button>
+    <button class="nav-btn" onclick="showSection('preceitos')">Preceitos</button>
+    <button class="nav-btn" onclick="showSection('checklist')">Checklist</button>
+    <button class="nav-btn" onclick="showSection('lunar')">Lua</button>
+  </nav>
+
+  <!-- ORDEM -->
+  <div id="sec-ordem" class="section active">
+    <div id="etapas-container"></div>
+  </div>
+
+  <!-- CALENDÁRIO -->
+  <div id="sec-calendario" class="section">
+    <div class="cal-tabs">
+      <button class="cal-tab active" onclick="showCal('a')">Calendário A — 21 dias do sábado</button>
+      <button class="cal-tab" onclick="showCal('b')">Calendário B — 21 dias do domingo</button>
+    </div>
+    <div id="cal-desc-a" style="font-size:12px;color:var(--text3);margin-bottom:14px;">Intervalo de 21 dias contados a partir do <strong style="color:var(--text2);">sábado</strong> da obrigação.</div>
+    <div id="cal-desc-b" style="font-size:12px;color:var(--text3);margin-bottom:14px;display:none;">Intervalo de 21 dias contados a partir do <strong style="color:var(--text2);">domingo</strong> de encerramento.</div>
+    <div id="sched-a"></div>
+    <div id="sched-b" style="display:none;"></div>
+  </div>
+
+  <!-- PRECEITOS -->
+  <div id="sec-preceitos" class="section">
+    <div class="rule-block">
+      <h3>Preceitos gerais — 7 dias</h3>
+      <div class="rule-item">Sem carne de nenhum tipo (nem peixe, nem embutidos). Permitido: ovos, leite, derivados e mel com moderação.</div>
+      <div class="rule-item">Sem bebida alcoólica de nenhuma espécie — nem incorporado.</div>
+      <div class="rule-item">Abstinência sexual completa. Sem beijos (nem na testa). Abraços suaves permitidos.</div>
+      <div class="rule-item">Dormir em esteira nova de palha ou taboa, defumada. Roupas brancas ao deitar.</div>
+      <div class="rule-item">Vela de 7 dias ao lado direito da cabeça na cor do Orixá. Oração antes de dormir.</div>
+      <div class="rule-item">Banhos com ervas do Orixá: 3 a 7 qualidades, quantidade ímpar, por 7 dias.</div>
+      <div class="rule-item">Defumação diária com ervas (ímpar; mínimo: arruda + alecrim + guiné).</div>
+      <div class="rule-item">Sem trabalhos espirituais durante o período.</div>
+      <div class="rule-item">Evitar ambientes densos: hospitais, cemitérios, festas, aglomerações.</div>
+      <div class="rule-item">Firmar apenas vela do Orixá da obrigação + Anjo da Guarda. Pausar outras firmezas.</div>
+      <div class="rule-item">Manter equilíbrio emocional. Sem ira, sem excessos. Boas leituras espirituais.</div>
+      <div class="rule-item">Roupas escuras evitadas (exceto uniformes). Preferencialmente roupas claras durante todo o período.</div>
+    </div>
+    <div class="rule-block">
+      <h3>Oxalá — exceção: apenas 3 dias de preceito</h3>
+      <div class="rule-item">Única obrigação com preceito de 3 dias (início na quinta ao meio-dia).</div>
+      <div class="rule-item">Oxalá é o mais compreensivo e o que menos exige de nós.</div>
+      <div class="rule-item">Pode ser realizada em local fechado (único Orixá com esta permissão).</div>
+    </div>
+    <div class="rule-block">
+      <h3>Dia da obrigação — sábado (6º ou 2º dia)</h3>
+      <div class="rule-item">Antes de cada obrigação: oferta a Exu (vela bicolor vermelha/preta ou pequeno padê).</div>
+      <div class="rule-item">Todos os materiais previamente limpos, descarregados e defumados.</div>
+      <div class="rule-item">Ao chegar: defumar o local, a esteira e todos os objetos. Defumar-se também.</div>
+      <div class="rule-item">Oração de abertura pedindo o axé do Orixá.</div>
+      <div class="rule-item">Montar a oferenda. Firmar as velas. Bater cabeça em sinal de submissão e respeito.</div>
+      <div class="rule-item">30 minutos ajoelhado + 60 a 90 minutos deitado com a cabeça voltada para a oferta.</div>
+      <div class="rule-item">Ao encerrar: buscar o otá, colocar a vela de cera no lugar da pedra retirada.</div>
+      <div class="rule-item">Aguardar as velas consumirem. Limpar o domínio. Guardar objetos com respeito.</div>
+      <div class="rule-item">Retornar para casa: sem celular, TV ou videogame. Última noite na esteira.</div>
+      <div class="rule-item">Domingo ao meio-dia: encerramento do preceito.</div>
+    </div>
+    <div class="rule-block">
+      <h3>Obrigações duplas — regras específicas</h3>
+      <div class="rule-item">Prestar uma obrigação por vez. Nunca as duas ao mesmo tempo.</div>
+      <div class="rule-item">Calcular o tempo no domínio: cada obrigação = ~2 horas. Com duas = ~4 horas ou mais.</div>
+      <div class="rule-item">Banho e defumação: mínimo 3 ervas de cada Orixá (ex: 3 de Nanã + 3 de Obaluaê).</div>
+      <div class="rule-item">Se um dos Orixás está na sua coroa: prioridade para as ervas do Orixá de coroa.</div>
+      <div class="rule-item">Nanã e Obaluaê: sem adornos (anéis, brincos, piercings), sem maquiagem, cabelos soltos. Roupa branca integral incluindo roupas íntimas. Apenas a guia de Oxalá é permitida.</div>
+    </div>
+    <div class="rule-block">
+      <h3>Auxiliares (padrinhos e madrinhas)</h3>
+      <div class="rule-item">Dois auxiliares: preferencialmente 1 homem e 1 mulher. Serão padrinhos na obrigação de Oxalá.</div>
+      <div class="rule-item">Preceito dos auxiliares: 24 horas antes do horário da obrigação.</div>
+      <div class="rule-item">Todos vestidos de branco.</div>
+      <div class="rule-item">Podem: transportar materiais, entregar objetos nas mãos, derramar axés, amarrar toalhas na cabeça.</div>
+      <div class="rule-item">Não podem: firmar velas nem arrear nada que seja responsabilidade do sacerdote.</div>
+    </div>
+    <div class="rule-block">
+      <h3>Exceções ao preceito</h3>
+      <div class="rule-item">Problemas na coluna: cobertor dobrado ou colchão fino sob a esteira.</div>
+      <div class="rule-item">Florais de Bach com álcool: podem ser tomados normalmente.</div>
+      <div class="rule-item">Medicações contínuas, psiquiátricas ou controladas: não interromper.</div>
+      <div class="rule-item">Vela de 7 dias indisponível: vela palito comum diária na mesma cor.</div>
+      <div class="rule-item">Esteira indisponível: tapete claro e baixo no tamanho do corpo.</div>
+      <div class="rule-item">Ervas escassas: uma qualidade para banho e uma para defumação.</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div id="sec-checklist" class="section">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="prog-text" id="prog-text">0 de 0 itens marcados</div>
+    </div>
+    <div id="checklist-container"></div>
+  </div>
+
+  <!-- LUNAR -->
+  <div id="sec-lunar" class="section">
+    <div class="card">
+      <div class="cal-nav">
+        <button onclick="changeMonth(-1)">← Anterior</button>
+        <div class="cal-month-title" id="cal-month-title"></div>
+        <button onclick="changeMonth(1)">Próximo →</button>
+      </div>
+      <div class="cal-week-row">
+        <div class="cal-wh">Dom</div><div class="cal-wh">Seg</div><div class="cal-wh">Ter</div>
+        <div class="cal-wh">Qua</div><div class="cal-wh">Qui</div><div class="cal-wh">Sex</div><div class="cal-wh">Sáb</div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-legend">
+        <div class="cal-legend-item">🌑 Lua Nova — ideal Exu</div>
+        <div class="cal-legend-item">🌒 Crescente</div>
+        <div class="cal-legend-item">🌕 Lua Cheia — ideal Iemanjá / Oxum / Oxalá</div>
+        <div class="cal-legend-item">🌘 Minguante</div>
+        <div class="cal-legend-item" style="color:var(--gold);">◈ Hoje</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="gold-line"></div>
+    Que Ogum abra os caminhos e Iemanjá abençoe cada passo desta jornada
+  </footer>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DADOS
+// ═══════════════════════════════════════════════
+const ETAPAS_DEF = [
+  {
+    names: ['Oxalá'], cores: ['#c8c0b0'], preceito: 3, local: 'Terreiro', campo: false,
+    intervalAfter: 21, moonPref: 'cheia', coroa: false,
+    obs: 'Batismo umbandista — a mais importante e a única com apenas 3 dias de preceito. Pode ser realizada em local fechado. Oxalá é o mais compreensivo de todos os Orixás.',
+    regras: 'Amaci de Oxalá consagrado, banha de ori, sal grosso, água do mar, água de cachoeira, espadas de São Jorge, concha marinha.',
+    velas: '7 brancas nº4 · 1 cera branca (Orixá) · 1 cera branca (búzio/otá) · 1 bicolor verm/preta (Exu)',
+    ervas: 'Alecrim, arruda, erva-cidreira, guiné, hortelã, manjericão, poejo, sálvia, boldo, camomila, alevante, algodão',
+    flores: 'Girassol, flor-de-maracujá',
+    toalha: 'Branca 70×70cm — símbolo: triângulo de lados iguais ou cruz com raios de luz',
+    comidas: 'Uva Itália, canjica cozida ou arroz branco, mel',
+    bebidas: 'Suco de uva natural (não alcoólico)',
+  },
+  {
+    names: ['Oxum', 'Oxóssi'], cores: ['#c09030', '#507040'], preceito: 7, local: 'Cachoeira', campo: true,
+    intervalAfter: 21, moonPref: 'cheia', coroa: false,
+    obs: 'Os dois no mesmo dia, na cachoeira. Primeiro Oxum, depois Oxóssi. Calcular tempo: cada obrigação = 30 min ajoelhado + 60–90 min deitado.',
+    regras: 'Banho e defumação: mínimo 3 ervas de Oxum + 3 de Oxóssi. Oxum: mel, champanhe. Oxóssi: frutas e ervas da mata.',
+    velas: 'Oxum: douradas/amarelas + brancas · Oxóssi: 7 verdes nº4 + 7 brancas nº4',
+    ervas: 'Oxum: ervas de Oxum · Oxóssi: ervas da mata — ver apostila',
+    flores: 'Oxum: flores douradas/amarelas · Oxóssi: flores verdes ou brancas',
+    toalha: 'Oxum: dourada com meia lua crescente · Oxóssi: verde com seus símbolos',
+    comidas: 'Oxum: mel, amalá de Oxum · Oxóssi: frutas e amalá de Oxóssi',
+    bebidas: 'Oxum: champanhe ou mel diluído · Oxóssi: bebida de Oxóssi',
+  },
+  {
+    names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
+    intervalAfter: 30, moonPref: 'nova', coroa: false,
+    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Sem adornos de qualquer tipo, sem maquiagem, cabelos soltos. Roupa branca integral.',
+    regras: 'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho. Toalha branca para se enxugar.',
+    velas: 'Nanã: violeta/roxas + brancas · Obaluaê: brancas + pretas — ver apostila módulo 18',
+    ervas: 'Ervas de Nanã e de Obaluaê — ver apostila módulos 17 e 18',
+    flores: 'Flores de cada Orixá — ver apostila',
+    toalha: 'Nanã: violeta com seus símbolos · Obaluaê: branca e preta com seus símbolos',
+    comidas: 'Amalás específicos de cada Orixá — ver apostila',
+    bebidas: 'Água (Orixás da terra e ancestralidade)',
+  },
+  {
+    names: ['Ibeji'], cores: ['#c07080'], preceito: 7, local: 'Terreiro', campo: false,
+    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    obs: 'Sozinho no terreiro. São Cosme e Damião — energia leve, alegre. Preceito igualmente rigoroso.',
+    regras: 'Oferendas: doces, pipoca, frutas, balas, refrigerante, suco. Energia de criança mas fundamento sério.',
+    velas: 'Rosas e brancas — ver apostila módulo 27',
+    ervas: 'Ervas suaves e alegres — ver apostila módulo 27',
+    flores: 'Flores coloridas e alegres',
+    toalha: 'Rosa com símbolos de Ibeji',
+    comidas: 'Doces, pipoca, frutas, balas, guloseimas',
+    bebidas: 'Refrigerante, suco',
+  },
+  {
+    names: ['Obá'], cores: ['#903030'], preceito: 7, local: 'Terreiro', campo: false,
+    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    obs: 'Sozinho no terreiro. Obá é a Orixá guerreira das águas. Consultar apostila módulo 14 para lista completa de materiais.',
+    regras: 'Ver apostila módulo 14 para todos os detalhes e lista completa de materiais.',
+    velas: 'Velas de Obá — ver apostila módulo 14',
+    ervas: 'Ervas de Obá — ver apostila módulo 14',
+    flores: 'Flores de Obá — ver apostila módulo 14',
+    toalha: 'Toalha de Obá com seus símbolos — ver módulo 14',
+    comidas: 'Amalá de Obá — ver apostila módulo 14',
+    bebidas: 'Bebida de Obá — ver apostila módulo 14',
+  },
+  {
+    names: ['Iansã', 'Xangô'], cores: ['#c07820', '#804020'], preceito: 7, local: 'Terreiro', campo: false,
+    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô.',
+    regras: 'Banho e defumação: 3 ervas de Iansã + 3 de Xangô. Xangô: 2 latas Caracu, quiabo (100g), mel, lírio.',
+    velas: 'Iansã: amarelas + brancas · Xangô: 7 marrom nº4 + 7 branca nº4 + 1 cera branca + 1 bicolor (Exu)',
+    ervas: 'Iansã: ervas de Iansã · Xangô: ervas de Xangô — ver apostila',
+    flores: 'Iansã: flores amarelas · Xangô: lírio branco, lírio rajado ou monsenhor',
+    toalha: 'Iansã: amarela com seus símbolos · Xangô: marrom 70×70cm, bordas brancas, machados cruzados ou raio',
+    comidas: 'Iansã: amalá de Iansã · Xangô: quiabo picado (100g), mel',
+    bebidas: 'Iansã: bebida de Iansã · Xangô: 2 latas cerveja Caracu ou cerveja preta',
+  },
+  {
+    names: ['Ogum', 'Iemanjá'], cores: ['#c03030', '#3070c0'], preceito: 7, local: 'Praia', campo: true,
+    intervalAfter: 21, moonPref: 'cheia', coroa: true,
+    obs: 'Seus Orixás de coroa! A obrigação mais pessoal e significativa de todo o sacerdócio. Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia.',
+    regras: 'Ervas: prioridade para Ogum (Orixá de frente). Lua cheia favorece fortemente Iemanjá. Praia: ir ao final do dia. Água do mar pode ser coletada no próprio local.',
+    velas: 'Ogum: 7 vermelhas nº4 + 7 brancas + 1 cera branca (Orixá) + 1 cera branca (búzio) + 1 bicolor (Exu) · Iemanjá: azul claro + brancas',
+    ervas: 'Ogum: ervas de Ogum · Iemanjá: ervas de Iemanjá — ver apostila',
+    flores: 'Ogum: flores vermelhas · Iemanjá: rosas brancas, flores brancas',
+    toalha: 'Ogum: vermelha com símbolos de Ogum · Iemanjá: azul claro com símbolos de Iemanjá',
+    comidas: 'Amalás específicos de cada Orixá — ver apostila',
+    bebidas: 'Ogum: cerveja clara, aguardente · Iemanjá: bebida de Iemanjá',
+  },
+  {
+    names: ['Exu'], cores: ['#404040'], preceito: 7, local: 'Terreiro', campo: false,
+    intervalAfter: 1, moonPref: 'nova', coroa: false,
+    obs: 'Sozinho no terreiro. Lua nova ideal. Oferendar Orixá Exu + Exu entidade + Pombagira de frente. Padês são obrigatórios. Capa preta necessária.',
+    regras: '7 velas vermelhas + 7 pretas. Padê obrigatório para os 3. Faca, ponteiro, cordão, pemba. Capa preta para cobrir o corpo inteiro. 21 cigarros longos. 7 cravos vermelhos + 7 rosas s/espinhos.',
+    velas: '7 vermelhas nº4 · 7 pretas nº4 · 1 vela 7 dias bicolor verm/preta · 1 cera branca (anjo guarda) · 1 cera branca (Orixá/búzio/otá) · 1 vela por Orixá que recebeu obrigação antes',
+    ervas: 'Nó de cachorro, mastruço, losna, saco-saco, sete sangrias, fumo em folha, fedegoso (+ pitada de sal grosso no banho)',
+    flores: '7 cravos vermelhos, 7 rosas vermelhas sem espinhos',
+    toalha: 'Vermelha e preta 70×70cm com tridentes de Exu e Pombagira + Capa preta no tamanho do corpo',
+    comidas: 'Padê de farinha de mandioca (Orixá Exu) + padê do Exu entidade + padê da Pombagira',
+    bebidas: 'Aguardente (Orixá Exu) · bebida do Exu entidade · champanhe rosê (Pombagira)',
+  },
+  {
+    names: ['Ifá'], cores: ['#604090'], preceito: 7, local: 'Terreiro', campo: false,
+    intervalAfter: 0, moonPref: 'nova', coroa: false,
+    obs: 'No dia SEGUINTE a Exu (domingo), no terreiro. Preceito contínuo de Exu. Ao completar esta obrigação, torna-se Babalorixá/Ialorixá com acesso ao oráculo de Ifá.',
+    regras: 'O preceito de 7 dias corre junto com Exu. Ifá é no domingo. Consultar apostila módulo 29 para materiais completos. Búzios consagrados.',
+    velas: 'Velas de Ifá/Orunmilá — ver apostila módulo 29',
+    ervas: 'Ervas de Ifá — ver apostila módulo 29',
+    flores: 'Flores de Ifá — ver apostila',
+    toalha: 'Toalha de Ifá com símbolos de Orunmilá',
+    comidas: 'Amalá de Ifá/Orunmilá — ver apostila',
+    bebidas: 'Bebida de Ifá — ver apostila',
+  },
+];
+
+const CL_GROUPS = {
+  'Materiais gerais — todas as obrigações': [
+    'Esteira nova de palha ou taboa (defumada)',
+    'Roupas brancas para dormir (7 trocas)',
+    'Defumador e carvão vegetal',
+    'Arruda, alecrim e guiné (trio básico de defumação)',
+    'Velas de 7 dias (uma por etapa, na cor do Orixá)',
+    'Pemba branca',
+    'Fósforos e isqueiro de reserva',
+    'Potes de louça branca pequenos',
+    'Porta-incenso e incensos',
+  ],
+  'Toalhas — confeccionar (70×70cm, percal ou Oxford)': [
+    'Oxalá — branca, símbolo: triângulo ou cruz com raios',
+    'Oxum — dourada com meia lua crescente',
+    'Oxóssi — verde com seus símbolos',
+    'Nanã — violeta com seus símbolos',
+    'Obaluaê — branca e preta com seus símbolos',
+    'Ibeji — rosa com seus símbolos',
+    'Obá — cor/símbolos de Obá (ver módulo 14)',
+    'Iansã — amarela com seus símbolos',
+    'Xangô — marrom, bordas brancas, machados cruzados',
+    'Ogum — vermelha com símbolos de Ogum',
+    'Iemanjá — azul claro com símbolos de Iemanjá',
+    'Exu — vermelha e preta, tridentes',
+    'Capa preta (tamanho do corpo) para Exu',
+    'Ifá — símbolos de Orunmilá',
+  ],
+  'Fios-de-contas e guias': [
+    'Guia de Oxalá (batismo)',
+    'Guia de Ogum (Orixá de frente)',
+    'Guia de Iemanjá (ajuntó)',
+    'Guias dos outros Orixás da coroa',
+    'Guia do Guia de Frente',
+    'Brajá de sacerdote',
+    'Brajá de Exu',
+    'Cordão de Exu',
+  ],
+  'Búzios e otás': [
+    '16 búzios (1 maior = Oxalá, 1 segundo maior = Iemanjá, 14 menores)',
+    'Minerais/pedras de cada domínio para otá de cada Orixá',
+    'Alguidares de barro novos para cada Orixá que necessitar',
+    'Taças e copos específicos (Exu, Pombagira, etc.)',
+  ],
+  'Exu — oferta ANTES de cada obrigação (padê)': [
+    'Farinha de mandioca para padê',
+    'Velas bicolores vermelha e preta (uma por obrigação)',
+    'Aguardente',
+    'Charutos',
+  ],
+  'Obrigação de Exu — materiais especiais': [
+    'Faca para Exu',
+    'Ponteiro para Exu',
+    'Ponteiro para Pombagira',
+    'Pemba preta e pemba vermelha',
+    'Tridente, ogó ou imagem de Exu',
+    '7 fitas pretas de cetim 50cm',
+    '7 fitas vermelhas de cetim 50cm',
+    '21 cigarros longos',
+    '2 charutos de boa qualidade',
+    '7 cravos vermelhos',
+    '7 rosas vermelhas sem espinhos',
+    'Champanhe rosê',
+    'Oferendas para Pombagira: perfume, batom, pulseiras, espelho, leque',
+  ],
+  'Auxiliares (padrinhos e madrinhas)': [
+    'Definir 1 padrinho e 1 madrinha',
+    'Orientar sobre preceito de 24h antes',
+    'Roupas brancas para os auxiliares',
+    'Enviar foto de rosto + foto de corpo inteiro (roupa branca, sem guias) ao sacerdote',
+  ],
+  'Obrigação de Nanã e Obaluaê — restrições': [
+    'Remover todos os adornos (anéis, brincos, correntes, piercings, alargadores)',
+    'Remover maquiagem (mulheres) — nem esmalte',
+    'Soltar os cabelos',
+    'Providenciar roupa branca para roupas íntimas também',
+    'Pipocas e azeite de dendê para o banho',
+  ],
+};
+
+const BAR_COLORS = ['#a09080','#c09030','#805090','#c07080','#903030','#c07820','#c03030','#404040','#604090'];
+const MONTH_NAMES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const MONTH_SHORT = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+
+// ═══════════════════════════════════════════════
+// MOON
+// ═══════════════════════════════════════════════
+function getMoon(date) {
+  const diff = (date - new Date(2000,0,6.3)) / 86400000;
+  const phase = ((diff % 29.53058867) + 29.53058867) % 29.53058867;
+  if (phase < 1.85 || phase > 27.68) return {icon:'🌑', name:'Lua Nova', q:'nova'};
+  if (phase < 7.38) return {icon:'🌒', name:'Crescente', q:'crescente'};
+  if (phase < 9.22) return {icon:'🌓', name:'Quarto Crescente', q:'crescente'};
+  if (phase < 14.77) return {icon:'🌔', name:'Gibbosa Crescente', q:'crescente'};
+  if (phase < 16.61) return {icon:'🌕', name:'Lua Cheia', q:'cheia'};
+  if (phase < 22.15) return {icon:'🌖', name:'Gibbosa Minguante', q:'minguante'};
+  if (phase < 23.99) return {icon:'🌗', name:'Quarto Minguante', q:'minguante'};
+  return {icon:'🌘', name:'Minguante', q:'minguante'};
+}
+function moonOk(moon, pref) {
+  if (pref === 'cheia') return moon.q === 'cheia' || moon.q === 'crescente';
+  if (pref === 'nova') return moon.q === 'nova' || moon.q === 'crescente';
+  if (pref === 'crescente') return moon.q === 'crescente' || moon.q === 'cheia';
+  return true;
+}
+function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
+function nextSat(from) {
+  const d = new Date(from);
+  const dow = d.getDay();
+  d.setDate(d.getDate() + ((6 - dow + 7) % 7 || 7));
+  return d;
+}
+function chooseSat(from, pref) {
+  let d = nextSat(from);
+  for (let i = 0; i < 16; i++) { if (moonOk(getMoon(d), pref)) return d; d = addDays(d, 7); }
+  return nextSat(from);
+}
+function fmt(d) { return d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'}); }
+function fmtS(d) { return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short'}); }
+function fmtLong(d) { return d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}); }
+
+// ═══════════════════════════════════════════════
+// SCHEDULE
+// ═══════════════════════════════════════════════
+function buildSchedule(mode) {
+  const sch = [];
+  let cursor = new Date(2025,3,28);
+  ETAPAS_DEF.forEach((e,i) => {
+    const sat = chooseSat(cursor, e.moonPref);
+    const moon = getMoon(sat);
+    const precStart = e.preceito === 3 ? addDays(sat,-3) : addDays(sat,-6);
+    const sun = addDays(sat,1);
+    sch.push({...e, sat, sun, precStart, moon});
+    if (i < ETAPAS_DEF.length - 1) {
+      if (e.intervalAfter === 1) { cursor = sun; }
+      else { cursor = addDays(mode === 'sat' ? sat : sun, e.intervalAfter); }
+    }
+  });
+  return sch;
+}
+
+const schA = buildSchedule('sat');
+const schB = buildSchedule('sun');
+
+// ═══════════════════════════════════════════════
+// RENDER ORDEM
+// ═══════════════════════════════════════════════
+function renderOrdem() {
+  const cont = document.getElementById('etapas-container');
+  let html = '';
+  ETAPAS_DEF.forEach((e,i) => {
+    const corMain = e.cores[0];
+    const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' <span style="color:var(--gold);font-size:13px;font-family:sans-serif;">★</span>' : '');
+    const badgeCls = e.campo ? 'badge-campo' : 'badge-terreiro';
+    const badgeIcon = e.campo ? '🌿' : '🏠';
+    const coroa = e.coroa ? '<span style="font-size:11px;color:var(--gold);margin-left:6px;letter-spacing:0.04em;">seus Orixás de coroa</span>' : '';
+
+    html += `
+    <div class="etapa" id="et${i}">
+      <div class="etapa-header" onclick="toggleEt(${i})">
+        <div class="etapa-seq">0${i+1}</div>
+        <div class="etapa-dot" style="background:${corMain};box-shadow:0 0 8px ${corMain}44;"></div>
+        <div class="etapa-info">
+          <div class="etapa-name">${nameHtml}${coroa}</div>
+          <div class="etapa-meta">${e.local} &nbsp;·&nbsp; ${e.preceito} dias de preceito &nbsp;·&nbsp; ${e.campo ? 'campo sagrado' : 'terreiro'}</div>
+        </div>
+        <div class="etapa-right">
+          <div class="badge ${badgeCls}">${badgeIcon} ${e.local}</div>
+        </div>
+      </div>
+      <div class="etapa-body">
+        <div class="detail-grid">
+          <div class="di"><div class="dl">Preceito</div><div class="dv">${e.preceito} dias</div></div>
+          <div class="di"><div class="dl">Local</div><div class="dv">${e.campo ? '🌿' : '🏠'} ${e.local}</div></div>
+          <div class="di"><div class="dl">Lua ideal</div><div class="dv">${e.moonPref === 'cheia' ? '🌕 Lua cheia' : e.moonPref === 'nova' ? '🌑 Lua nova' : '🌒 Crescente'}</div></div>
+          <div class="di"><div class="dl">Intervalo após</div><div class="dv">${e.intervalAfter === 1 ? 'Dia seguinte (Ifá)' : e.intervalAfter === 0 ? 'Última obrigação' : e.intervalAfter + ' dias'}</div></div>
+        </div>
+        <div class="detail-full"><div class="dl">Velas</div><div class="dv" style="margin-top:4px;">${e.velas}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Ervas (banho e defumação)</div><div class="dv" style="margin-top:4px;">${e.ervas}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Flores</div><div class="dv" style="margin-top:4px;">${e.flores}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Bebidas</div><div class="dv" style="margin-top:4px;">${e.bebidas}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Comidas / Amalá</div><div class="dv" style="margin-top:4px;">${e.comidas}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Toalha</div><div class="dv" style="margin-top:4px;">${e.toalha}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Observação</div><div class="dv" style="margin-top:4px;">${e.obs}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Atenção especial</div><div class="dv" style="margin-top:4px;">${e.regras}</div></div>
+      </div>
+    </div>`;
+
+    if (i < ETAPAS_DEF.length - 1) {
+      const connLabel = e.intervalAfter === 1 ? 'Ifá no dia seguinte' : `${e.intervalAfter} dias de intervalo`;
+      const connH = e.intervalAfter >= 30 ? '30px' : '18px';
+      html += `<div class="connector"><div class="conn-line" style="min-height:${connH};"></div><div class="conn-label">${connLabel}</div></div>`;
+    }
+  });
+  cont.innerHTML = html;
+}
+
+function toggleEt(i) {
+  document.getElementById('et'+i).classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════
+// RENDER SCHEDULE
+// ═══════════════════════════════════════════════
+function renderSchedule(sch, id) {
+  const cont = document.getElementById(id);
+  let html = '';
+
+  sch.forEach((e,i) => {
+    const moon = e.moon;
+    const ok = moonOk(moon, e.moonPref);
+    const moonBadgeCls = ok ? 'badge-ok' : 'badge-warn';
+    const moonBadgeIcon = ok ? '✓' : '⚠';
+    const badgeCls = e.campo ? 'badge-campo' : 'badge-terreiro';
+    const badgeIcon = e.campo ? '🌿' : '🏠';
+    const precLabel = e.preceito === 3
+      ? `Início preceito: ${fmt(e.precStart)} (qui)`
+      : `Início preceito: ${fmt(e.precStart)} (dom)`;
+    const nameHtml = e.names.join(' &amp; ') + (e.coroa ? ' ★' : '');
+    const moonPrefLabel = e.moonPref === 'cheia' ? '🌕 ideal: lua cheia' : e.moonPref === 'nova' ? '🌑 ideal: lua nova' : '🌒 ideal: crescente';
+
+    html += `
+    <div class="etapa" id="${id}et${i}">
+      <div class="etapa-header" onclick="toggleEtSch('${id}et${i}')">
+        <div class="etapa-seq">0${i+1}</div>
+        <div class="etapa-dot" style="background:${e.cores[0]};box-shadow:0 0 8px ${e.cores[0]}44;"></div>
+        <div class="etapa-info">
+          <div class="etapa-name">${nameHtml}</div>
+          <div class="etapa-meta">${fmtLong(e.sat)}</div>
+          <div class="etapa-meta" style="margin-top:2px;">${precLabel} → <strong style="color:var(--text2);">sáb ${fmtS(e.sat)}</strong></div>
+        </div>
+        <div class="etapa-right">
+          <div style="font-size:22px;">${moon.icon}</div>
+          <div class="badge ${moonBadgeCls}" style="margin-top:3px;">${moonBadgeIcon} ${moon.name.split(' ').slice(0,2).join(' ')}</div>
+          <div class="badge ${badgeCls}" style="margin-top:3px;">${badgeIcon} ${e.local}</div>
+        </div>
+      </div>
+      <div class="etapa-body">
+        <div class="detail-grid">
+          <div class="di"><div class="dl">Início preceito</div><div class="dv">${fmt(e.precStart)}</div></div>
+          <div class="di"><div class="dl">Dia da obrigação</div><div class="dv">${fmt(e.sat)} (sáb)</div></div>
+          <div class="di"><div class="dl">Encerramento</div><div class="dv">${fmt(e.sun)} ao meio-dia</div></div>
+          <div class="di"><div class="dl">Fase da lua</div><div class="dv">${moon.icon} ${moon.name}</div></div>
+          <div class="di"><div class="dl">Lua ideal</div><div class="dv">${moonPrefLabel}</div></div>
+          <div class="di"><div class="dl">Local</div><div class="dv">${badgeIcon} ${e.local}</div></div>
+        </div>
+        <div class="detail-full" style="margin-top:8px;"><div class="dl">Observação</div><div class="dv" style="margin-top:4px;">${e.obs}</div></div>
+        <div class="detail-full" style="margin-top:6px;"><div class="dl">Regras especiais</div><div class="dv" style="margin-top:4px;">${e.regras}</div></div>
+      </div>
+    </div>`;
+
+    if (i < sch.length - 1) {
+      const connLabel = e.intervalAfter === 1 ? 'Ifá no dia seguinte' : `${e.intervalAfter} dias → próxima`;
+      const connH = e.intervalAfter >= 30 ? '30px' : '18px';
+      html += `<div class="connector"><div class="conn-line" style="min-height:${connH};"></div><div class="conn-label">${connLabel}</div></div>`;
+    }
+  });
+
+  // SUMMARY
+  const first = sch[0].sat;
+  const last = sch[sch.length-1].sat;
+  const span = Math.round((last-first)/86400000);
+  const months = Math.round(span/30.44*10)/10;
+  const campo = sch.filter(e=>e.campo).length;
+  const okCount = sch.filter(e=>moonOk(e.moon,e.moonPref)).length;
+
+  const totalSpan = 270;
+  let bars = `<div class="timeline-months">`;
+  ['mai','jun','jul','ago','set','out','nov','dez'].forEach(m => { bars += `<span>${m}</span>`; });
+  bars += `</div><div class="timeline-bar-bg">`;
+  sch.forEach((e,i) => {
+    const offset = Math.round((e.precStart - new Date(2025,4,1))/86400000);
+    const dur = Math.round((e.sun - e.precStart)/86400000);
+    const left = Math.max(0,Math.round(offset/totalSpan*100));
+    const width = Math.max(2,Math.round(dur/totalSpan*100));
+    const nameS = e.names.map(n=>n.replace(' ★','')).join('/');
+    bars += `<div class="timeline-seg" style="left:${left}%;width:${width}%;background:${BAR_COLORS[i]};">${nameS}</div>`;
+  });
+  bars += '</div>';
+
+  html += `<div class="card" style="margin-top:20px;">
+    <div class="card-title">Visão geral</div>
+    <div class="timeline-outer">${bars}</div>
+    <div class="summary-boxes">
+      <div class="sum-box"><div class="sum-num">${fmtS(first)}</div><div class="sum-lbl">primeira (Oxalá)</div></div>
+      <div class="sum-box"><div class="sum-num">${fmtS(last)}</div><div class="sum-lbl">última (Exu/Ifá)</div></div>
+      <div class="sum-box"><div class="sum-num">${months}</div><div class="sum-lbl">meses no total</div></div>
+      <div class="sum-box"><div class="sum-num">${campo}</div><div class="sum-lbl">campo sagrado</div></div>
+      <div class="sum-box"><div class="sum-num">${9-campo}</div><div class="sum-lbl">no terreiro</div></div>
+      <div class="sum-box" style="${okCount===9?'border-color:var(--green);':'border-color:var(--amber);'}"><div class="sum-num">${okCount}/9</div><div class="sum-lbl">luas ideais</div></div>
+    </div>
+  </div>`;
+
+  cont.innerHTML = html;
+}
+
+function toggleEtSch(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ═══════════════════════════════════════════════
+// CHECKLIST
+// ═══════════════════════════════════════════════
+let checkState = {};
+
+function renderChecklist() {
+  let tot = 0, done = 0, html = '';
+  for (const [grp, items] of Object.entries(CL_GROUPS)) {
+    html += `<div class="cl-group"><div class="cl-group-title">${grp}</div>`;
+    items.forEach((item, idx) => {
+      const k = grp+'|'+idx;
+      const chk = checkState[k] || false;
+      if (chk) done++;
+      tot++;
+      html += `<div class="cl-item ${chk?'done':''}" onclick="toggleCl('${k}')">
+        <div class="cl-check"></div>
+        <span>${item}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('checklist-container').innerHTML = html;
+  const pct = tot > 0 ? Math.round(done/tot*100) : 0;
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-text').textContent = `${done} de ${tot} itens marcados (${pct}%)`;
+}
+
+function toggleCl(k) {
+  checkState[k] = !checkState[k];
+  renderChecklist();
+}
+
+// ═══════════════════════════════════════════════
+// LUNAR CALENDAR
+// ═══════════════════════════════════════════════
+let calYear = 2025, calMonth = 4;
+
+function renderLunar() {
+  const today = new Date();
+  const first = new Date(calYear, calMonth, 1).getDay();
+  const days = new Date(calYear, calMonth+1, 0).getDate();
+  document.getElementById('cal-month-title').textContent = MONTH_NAMES[calMonth] + ' ' + calYear;
+  let html = '';
+  for (let i = 0; i < first; i++) html += '<div class="cal-day empty"></div>';
+  for (let d = 1; d <= days; d++) {
+    const dt = new Date(calYear, calMonth, d);
+    const m = getMoon(dt);
+    const isToday = today.getFullYear()===calYear && today.getMonth()===calMonth && today.getDate()===d;
+    let cls = '';
+    if (m.q === 'nova') cls = 'lua-nova';
+    if (m.q === 'cheia') cls = 'lua-cheia';
+    if (isToday) cls += ' today';
+    html += `<div class="cal-day ${cls}">
+      <div class="cdn">${d}</div>
+      <div class="cmi">${m.icon}</div>
+      <div class="cms">${m.name.replace('Lua ','').replace('Quarto ','Q. ').replace('Gibbosa ','Gib. ')}</div>
+    </div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = html;
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderLunar();
+}
+
+// ═══════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════
+function showSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+let curCal = 'a';
+function showCal(which) {
+  curCal = which;
+  document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('sched-a').style.display = which === 'a' ? 'block' : 'none';
+  document.getElementById('sched-b').style.display = which === 'b' ? 'block' : 'none';
+  document.getElementById('cal-desc-a').style.display = which === 'a' ? 'block' : 'none';
+  document.getElementById('cal-desc-b').style.display = which === 'b' ? 'block' : 'none';
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+renderOrdem();
+renderSchedule(schA, 'sched-a');
+renderSchedule(schB, 'sched-b');
+renderChecklist();
+renderLunar();
+</script>
+</body>
+</html>

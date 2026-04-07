@@ -800,18 +800,6 @@ const ETAPAS_DEF = [
     bebidas: 'Iansã: bebida de Iansã · Xangô: 2 latas cerveja Caracu ou cerveja preta',
   },
   {
-    names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
-    intervalAfter: 30, moonPref: 'minguante', coroa: 'luciano',
-    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Nanã: astro regente Lua no quarto minguante (apostila) — Orixá de frente do Luciano. Obaluaê: astro regente não especificado na apostila. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral.',
-    regras: 'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho. Toalha branca para se enxugar.',
-    velas: 'Nanã: violeta/roxas + brancas · Obaluaê: brancas + pretas — ver apostila módulo 18',
-    ervas: 'Ervas de Nanã e de Obaluaê — ver apostila módulos 17 e 18',
-    flores: 'Flores de cada Orixá — ver apostila',
-    toalha: 'Nanã: violeta com seus símbolos · Obaluaê: branca e preta com seus símbolos',
-    comidas: 'Amalás específicos de cada Orixá — ver apostila',
-    bebidas: 'Água (Orixás da terra e ancestralidade)',
-  },
-  {
     names: ['Ibeji'], cores: ['#c07080'], preceito: 7, local: 'Terreiro', campo: false,
     intervalAfter: 21, moonPref: 'qualquer', coroa: false,
     obs: 'Sozinho no terreiro. São Cosme e Damião — energia leve, alegre. Preceito igualmente rigoroso.',
@@ -822,6 +810,18 @@ const ETAPAS_DEF = [
     toalha: 'Rosa com símbolos de Ibeji',
     comidas: 'Doces, pipoca, frutas, balas, guloseimas',
     bebidas: 'Refrigerante, suco',
+  },
+  {
+    names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
+    intervalAfter: 30, moonPref: 'minguante', coroa: 'luciano',
+    obs: 'Os dois no mesmo dia, no mangue. Intervalo de 30 dias antes da próxima obrigação. Nanã: astro regente Lua no quarto minguante (apostila) — Orixá de frente do Luciano. Obaluaê: astro regente não especificado na apostila. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral.',
+    regras: 'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho. Toalha branca para se enxugar.',
+    velas: 'Nanã: violeta/roxas + brancas · Obaluaê: brancas + pretas — ver apostila módulo 18',
+    ervas: 'Ervas de Nanã e de Obaluaê — ver apostila módulos 17 e 18',
+    flores: 'Flores de cada Orixá — ver apostila',
+    toalha: 'Nanã: violeta com seus símbolos · Obaluaê: branca e preta com seus símbolos',
+    comidas: 'Amalás específicos de cada Orixá — ver apostila',
+    bebidas: 'Água (Orixás da terra e ancestralidade)',
   },
   {
     names: ['Obá'], cores: ['#903030'], preceito: 7, local: 'Terreiro', campo: false,
@@ -1095,8 +1095,8 @@ function gcalUrl(e) {
 const FIXED_DATES = [
   new Date(2026, 4, 2),   // 0 Oxalá         — sáb 02/05
   new Date(2026, 4, 31),  // 1 Iansã/Xangô   — dom 31/05
-  new Date(2026, 6, 5),   // 2 Nanã/Obaluaê  — dom 05/07
-  new Date(2026, 7, 8),   // 3 Ibeji         — sáb 08/08
+  new Date(2026, 7, 8),   // 2 Ibeji         — sáb 08/08
+  new Date(2026, 6, 5),   // 3 Nanã/Obaluaê  — dom 05/07
   new Date(2026, 8, 12),  // 4 Obá           — sáb 12/09
   new Date(2026, 9, 10),  // 5 Oxum/Oxóssi   — sáb 10/10
   new Date(2026, 10, 21), // 6 Ogum/Iemanjá  — sáb 21/11

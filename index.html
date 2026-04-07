@@ -657,11 +657,11 @@ footer .gold-line { margin: 0 auto 16px; }
   <!-- CALENDÁRIO -->
   <div id="sec-calendario" class="section">
     <div class="cal-tabs">
-      <button class="cal-tab active" onclick="showCal('a')">Calendário A — 21 dias do sábado</button>
-      <button class="cal-tab" onclick="showCal('b')">Calendário B — 21 dias do domingo</button>
+      <button class="cal-tab active" onclick="showCal('a')">Calendário A — obrigação no sábado</button>
+      <button class="cal-tab" onclick="showCal('b')">Calendário B — obrigação no domingo</button>
     </div>
-    <div id="cal-desc-a" style="font-size:12px;color:var(--text3);margin-bottom:14px;">Intervalo de 21 dias contados a partir do <strong style="color:var(--text2);">sábado</strong> da obrigação.</div>
-    <div id="cal-desc-b" style="font-size:12px;color:var(--text3);margin-bottom:14px;display:none;">Intervalo de 21 dias contados a partir do <strong style="color:var(--text2);">domingo</strong> de encerramento.</div>
+    <div id="cal-desc-a" style="font-size:12px;color:var(--text3);margin-bottom:14px;">As obrigações que caem em <strong style="color:var(--text2);">sábado</strong> ficam no sábado. As que já são domingo permanecem.</div>
+    <div id="cal-desc-b" style="font-size:12px;color:var(--text3);margin-bottom:14px;display:none;">As obrigações que caem em <strong style="color:var(--text2);">sábado</strong> são movidas para o <strong style="color:var(--text2);">domingo</strong> seguinte. As que já são domingo permanecem.</div>
     <div id="sched-a"></div>
     <div id="sched-b" style="display:none;"></div>
   </div>
@@ -1095,8 +1095,8 @@ function gcalUrl(e) {
 const FIXED_DATES = [
   new Date(2026, 4, 2),   // 0 Oxalá         — sáb 02/05
   new Date(2026, 4, 31),  // 1 Iansã/Xangô   — dom 31/05
-  new Date(2026, 7, 8),   // 2 Ibeji         — sáb 08/08
-  new Date(2026, 6, 5),   // 3 Nanã/Obaluaê  — dom 05/07
+  new Date(2026, 5, 27),  // 2 Ibeji         — sáb 27/06 🌔 Gibbosa Crescente
+  new Date(2026, 6, 5),   // 3 Nanã/Obaluaê  — dom 05/07 🌖 Gibbosa Minguante
   new Date(2026, 8, 12),  // 4 Obá           — sáb 12/09
   new Date(2026, 9, 10),  // 5 Oxum/Oxóssi   — sáb 10/10
   new Date(2026, 10, 21), // 6 Ogum/Iemanjá  — sáb 21/11
@@ -1107,12 +1107,19 @@ const FIXED_DATES = [
 function buildSchedule(mode) {
   const sch = [];
   ETAPAS_DEF.forEach((e, i) => {
-    const obrigDate = FIXED_DATES[i];
+    const baseDate = FIXED_DATES[i];
+    const isIfa = i === ETAPAS_DEF.length - 1;
+    const isSat = baseDate.getDay() === 6;
+
+    // Calendário A: sábados ficam sábado, domingos ficam domingo
+    // Calendário B: sábados viram domingo (+1 dia), domingos ficam domingo
+    const obrigDate = (mode === 'sun' && isSat) ? addDays(baseDate, 1) : baseDate;
+
     const moon = getMoon(obrigDate);
     const precStart = e.preceito === 3 ? addDays(obrigDate, -3) : addDays(obrigDate, -6);
-    const isIfa = i === ETAPAS_DEF.length - 1;
     const sun = isIfa ? obrigDate : addDays(obrigDate, 1);
-    const precStartFinal = isIfa ? addDays(FIXED_DATES[7], -6) : precStart;
+    const exuBase = mode === 'sun' ? addDays(FIXED_DATES[7], 1) : FIXED_DATES[7];
+    const precStartFinal = isIfa ? addDays(exuBase, -6) : precStart;
     sch.push({ ...e, sat: obrigDate, sun, precStart: precStartFinal, moon });
   });
   return sch;

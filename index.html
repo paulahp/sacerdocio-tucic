@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sacerdócio de Umbanda — Organizador</title>
-<!-- v1775567521 -->
 <!-- dois sacerdotes: você (Ogum/Iemanjá) e Luciano (Nanã/Xangô) -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
@@ -789,16 +788,16 @@ const ETAPAS_DEF = [
     bebidas: 'Suco de uva natural (não alcoólico)',
   },
   {
-    names: ['Oxum', 'Oxóssi'], cores: ['#c09030', '#507040'], preceito: 7, local: 'Cachoeira', campo: true,
-    intervalAfter: 21, moonPref: 'crescente', coroa: false,
-    obs: 'Os dois no mesmo dia, na cachoeira. Primeiro Oxum, depois Oxóssi. Oxum: astro regente Lua no quarto crescente (apostila). Oxóssi: astro regente Vênus — apostila não especifica lua. Calcular tempo: cada obrigação = 30 min ajoelhado + 60–90 min deitado.',
-    regras: 'Banho e defumação: mínimo 3 ervas de Oxum + 3 de Oxóssi. Oxum: mel, champanhe. Oxóssi: frutas e ervas da mata.',
-    velas: 'Oxum: douradas/amarelas + brancas · Oxóssi: 7 verdes nº4 + 7 brancas nº4',
-    ervas: 'Oxum: ervas de Oxum · Oxóssi: ervas da mata — ver apostila',
-    flores: 'Oxum: flores douradas/amarelas · Oxóssi: flores verdes ou brancas',
-    toalha: 'Oxum: dourada com meia lua crescente · Oxóssi: verde com seus símbolos',
-    comidas: 'Oxum: mel, amalá de Oxum · Oxóssi: frutas e amalá de Oxóssi',
-    bebidas: 'Oxum: champanhe ou mel diluído · Oxóssi: bebida de Oxóssi',
+    names: ['Iansã', 'Xangô'], cores: ['#c07820', '#804020'], preceito: 7, local: 'Terreiro', campo: false,
+    intervalAfter: 21, moonPref: 'nova', coroa: 'luciano-ajunto',
+    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô. Iansã: astro regente Lua no quarto novo (apostila). Xangô: astro regente Júpiter — Orixá ajuntó do Luciano.',
+    regras: 'Banho e defumação: 3 ervas de Iansã + 3 de Xangô. Xangô: 2 latas Caracu, quiabo (100g), mel, lírio.',
+    velas: 'Iansã: amarelas + brancas · Xangô: 7 marrom nº4 + 7 branca nº4 + 1 cera branca + 1 bicolor (Exu)',
+    ervas: 'Iansã: ervas de Iansã · Xangô: ervas de Xangô — ver apostila',
+    flores: 'Iansã: flores amarelas · Xangô: lírio branco, lírio rajado ou monsenhor',
+    toalha: 'Iansã: amarela com seus símbolos · Xangô: marrom 70×70cm, bordas brancas, machados cruzados ou raio',
+    comidas: 'Iansã: amalá de Iansã · Xangô: quiabo picado (100g), mel',
+    bebidas: 'Iansã: bebida de Iansã · Xangô: 2 latas cerveja Caracu ou cerveja preta',
   },
   {
     names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
@@ -837,21 +836,21 @@ const ETAPAS_DEF = [
     bebidas: 'Bebida de Obá — ver apostila módulo 14',
   },
   {
-    names: ['Iansã', 'Xangô'], cores: ['#c07820', '#804020'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 21, moonPref: 'nova', coroa: 'luciano-ajunto',
-    obs: 'Os dois no mesmo dia, no terreiro. Primeiro Iansã, depois Xangô. Iansã: astro regente Lua no quarto novo (apostila). Xangô: astro regente Júpiter — Orixá ajuntó do Luciano.',
-    regras: 'Banho e defumação: 3 ervas de Iansã + 3 de Xangô. Xangô: 2 latas Caracu, quiabo (100g), mel, lírio.',
-    velas: 'Iansã: amarelas + brancas · Xangô: 7 marrom nº4 + 7 branca nº4 + 1 cera branca + 1 bicolor (Exu)',
-    ervas: 'Iansã: ervas de Iansã · Xangô: ervas de Xangô — ver apostila',
-    flores: 'Iansã: flores amarelas · Xangô: lírio branco, lírio rajado ou monsenhor',
-    toalha: 'Iansã: amarela com seus símbolos · Xangô: marrom 70×70cm, bordas brancas, machados cruzados ou raio',
-    comidas: 'Iansã: amalá de Iansã · Xangô: quiabo picado (100g), mel',
-    bebidas: 'Iansã: bebida de Iansã · Xangô: 2 latas cerveja Caracu ou cerveja preta',
+    names: ['Oxum', 'Oxóssi'], cores: ['#c09030', '#507040'], preceito: 7, local: 'Cachoeira', campo: true,
+    intervalAfter: 21, moonPref: 'crescente', coroa: false,
+    obs: 'Os dois no mesmo dia, na cachoeira. Primeiro Oxum, depois Oxóssi. Oxum: astro regente Lua no quarto crescente (apostila). Oxóssi: astro regente Vênus. Calcular tempo: cada obrigação = 30 min ajoelhado + 60–90 min deitado.',
+    regras: 'Banho e defumação: mínimo 3 ervas de Oxum + 3 de Oxóssi. Oxum: mel, champanhe. Oxóssi: frutas e ervas da mata.',
+    velas: 'Oxum: douradas/amarelas + brancas · Oxóssi: 7 verdes nº4 + 7 brancas nº4',
+    ervas: 'Oxum: ervas de Oxum · Oxóssi: ervas da mata — ver apostila',
+    flores: 'Oxum: flores douradas/amarelas · Oxóssi: flores verdes ou brancas',
+    toalha: 'Oxum: dourada com meia lua crescente · Oxóssi: verde com seus símbolos',
+    comidas: 'Oxum: mel, amalá de Oxum · Oxóssi: frutas e amalá de Oxóssi',
+    bebidas: 'Oxum: champanhe ou mel diluído · Oxóssi: bebida de Oxóssi',
   },
   {
     names: ['Ogum', 'Iemanjá'], cores: ['#c03030', '#3070c0'], preceito: 7, local: 'Praia', campo: true,
     intervalAfter: 21, moonPref: 'cheia', coroa: 'voce',
-    obs: 'Seus Orixás de coroa! A obrigação mais pessoal e significativa de todo o sacerdócio. Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia. Iemanjá: astro regente Lua no quarto cheio (apostila).',
+    obs: 'Orixás de coroa da Paula! Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia. Iemanjá: astro regente Lua no quarto cheio (apostila).',
     regras: 'Ervas: prioridade para Ogum (Orixá de frente). Lua cheia favorece fortemente Iemanjá. Praia: ir ao final do dia. Água do mar pode ser coletada no próprio local.',
     velas: 'Ogum: 7 vermelhas nº4 + 7 brancas + 1 cera branca (Orixá) + 1 cera branca (búzio) + 1 bicolor (Exu) · Iemanjá: azul claro + brancas',
     ervas: 'Ogum: ervas de Ogum · Iemanjá: ervas de Iemanjá — ver apostila',
@@ -874,7 +873,7 @@ const ETAPAS_DEF = [
   },
   {
     names: ['Ifá'], cores: ['#604090'], preceito: 7, local: 'Terreiro', campo: false,
-    intervalAfter: 0, moonPref: 'nova', coroa: false,
+    intervalAfter: 0, moonPref: 'qualquer', coroa: false,
     obs: 'No dia SEGUINTE a Exu (domingo), no terreiro. Preceito contínuo de Exu. Ao completar esta obrigação, torna-se Babalorixá/Ialorixá com acesso ao oráculo de Ifá.',
     regras: 'O preceito de 7 dias corre junto com Exu. Ifá é no domingo. Consultar apostila módulo 29 para materiais completos. Búzios consagrados.',
     velas: 'Velas de Ifá/Orunmilá — ver apostila módulo 29',
@@ -1094,15 +1093,15 @@ function gcalUrl(e) {
 // 20/12/2026 dom  → Ifá
 
 const FIXED_DATES = [
-  new Date(2026, 4, 2),   // 0 Oxalá        — sáb
-  new Date(2026, 4, 31),  // 1 Iansã/Xangô  — dom
-  new Date(2026, 6, 5),   // 2 Nanã/Obaluaê — dom
-  new Date(2026, 7, 8),   // 3 Ibeji        — sáb
-  new Date(2026, 8, 12),  // 4 Obá          — sáb
-  new Date(2026, 9, 10),  // 5 Oxum/Oxóssi  — sáb
-  new Date(2026, 10, 21), // 6 Ogum/Iemanjá — sáb
-  new Date(2026, 11, 19), // 7 Exu          — sáb
-  new Date(2026, 11, 20), // 8 Ifá          — dom
+  new Date(2026, 4, 2),   // 0 Oxalá         — sáb 02/05
+  new Date(2026, 4, 31),  // 1 Iansã/Xangô   — dom 31/05
+  new Date(2026, 6, 5),   // 2 Nanã/Obaluaê  — dom 05/07
+  new Date(2026, 7, 8),   // 3 Ibeji         — sáb 08/08
+  new Date(2026, 8, 12),  // 4 Obá           — sáb 12/09
+  new Date(2026, 9, 10),  // 5 Oxum/Oxóssi   — sáb 10/10
+  new Date(2026, 10, 21), // 6 Ogum/Iemanjá  — sáb 21/11
+  new Date(2026, 11, 19), // 7 Exu           — sáb 19/12
+  new Date(2026, 11, 20), // 8 Ifá           — dom 20/12
 ];
 
 function buildSchedule(mode) {

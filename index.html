@@ -1079,37 +1079,41 @@ function gcalUrl(e) {
 }
 
 // ═══════════════════════════════════════════════
-// SCHEDULE
+// SCHEDULE — datas fixas conforme definido
 // ═══════════════════════════════════════════════
+// Ordem da imagem:
+// 02/05/2026 sáb  → Oxalá
+// 31/05/2026 dom  → Iansã/Xangô  (nota: cai domingo)
+// 05/07/2026 dom  → Nanã/Obaluaê (nota: cai domingo)
+// 08/08/2026 sáb  → Ibeji
+// 12/09/2026 sáb  → Obá
+// 10/10/2026 sáb  → Oxum/Oxóssi
+// 21/11/2026 sáb  → Ogum/Iemanjá
+// 19/12/2026 sáb  → Exu
+// 20/12/2026 dom  → Ifá
+
+const FIXED_DATES = [
+  new Date(2026, 4, 2),   // 0 Oxalá        — sáb
+  new Date(2026, 4, 31),  // 1 Iansã/Xangô  — dom
+  new Date(2026, 6, 5),   // 2 Nanã/Obaluaê — dom
+  new Date(2026, 7, 8),   // 3 Ibeji        — sáb
+  new Date(2026, 8, 12),  // 4 Obá          — sáb
+  new Date(2026, 9, 10),  // 5 Oxum/Oxóssi  — sáb
+  new Date(2026, 10, 21), // 6 Ogum/Iemanjá — sáb
+  new Date(2026, 11, 19), // 7 Exu          — sáb
+  new Date(2026, 11, 20), // 8 Ifá          — dom
+];
+
 function buildSchedule(mode) {
   const sch = [];
-  let cursor = new Date(2026,3,27);
-  ETAPAS_DEF.forEach((e,i) => {
+  ETAPAS_DEF.forEach((e, i) => {
+    const obrigDate = FIXED_DATES[i];
+    const moon = getMoon(obrigDate);
+    const precStart = e.preceito === 3 ? addDays(obrigDate, -3) : addDays(obrigDate, -6);
     const isIfa = i === ETAPAS_DEF.length - 1;
-    let sat, moon, precStart, sun;
-
-    if (isIfa) {
-      // Ifá is always the Sunday after Exu's Saturday
-      // sch[i-1] is Exu — use its sat + 1
-      const exuSat = sch[i-1].sat;
-      const ifaSun = addDays(exuSat, 1);
-      sat = ifaSun;   // "sat" here is actually Sunday
-      sun = ifaSun;   // same day, encerra ao meio-dia
-      precStart = sch[i-1].precStart; // same preceito start as Exu
-      moon = getMoon(ifaSun);
-    } else {
-      sat = chooseSat(cursor, e.moonPref);
-      moon = getMoon(sat);
-      precStart = e.preceito === 3 ? addDays(sat,-3) : addDays(sat,-6);
-      sun = addDays(sat,1);
-    }
-
-    sch.push({...e, sat, sun, precStart, moon});
-
-    if (i < ETAPAS_DEF.length - 1) {
-      if (e.intervalAfter === 1) { cursor = sun; } // Exu → just pass sun, but Ifá overrides above
-      else { cursor = addDays(mode === 'sat' ? sat : sun, e.intervalAfter); }
-    }
+    const sun = isIfa ? obrigDate : addDays(obrigDate, 1);
+    const precStartFinal = isIfa ? addDays(FIXED_DATES[7], -6) : precStart;
+    sch.push({ ...e, sat: obrigDate, sun, precStart: precStartFinal, moon });
   });
   return sch;
 }
@@ -1197,6 +1201,8 @@ function renderSchedule(sch, id) {
     const badgeCls = e.campo ? 'badge-campo' : 'badge-terreiro';
     const badgeIcon = e.campo ? '🌿' : '🏠';
     const isIfa = i === sch.length - 1;
+    const weekday = e.sat.getDay(); // 0=dom, 6=sáb
+    const dayLabel = weekday === 0 ? 'dom' : weekday === 6 ? 'sáb' : ['dom','seg','ter','qua','qui','sex','sáb'][weekday];
     const precLabel = e.preceito === 3
       ? `Início preceito: ${fmt(e.precStart)} (qui)`
       : isIfa
@@ -1218,7 +1224,7 @@ function renderSchedule(sch, id) {
         <div class="etapa-info">
           <div class="etapa-name">${nameHtml}${ctag}</div>
           <div class="etapa-meta">${fmtLong(e.sat)}</div>
-          <div class="etapa-meta" style="margin-top:2px;">${precLabel} → <strong style="color:var(--text2);">${isIfa ? 'dom' : 'sáb'} ${fmtS(e.sat)}</strong></div>
+          <div class="etapa-meta" style="margin-top:2px;">${precLabel} → <strong style="color:var(--text2);">${dayLabel} ${fmtS(e.sat)}</strong></div>
         </div>
         <div class="etapa-right">
           <div style="font-size:22px;">${moon.icon}</div>
@@ -1229,7 +1235,7 @@ function renderSchedule(sch, id) {
       <div class="etapa-body">
         <div class="detail-grid">
           <div class="di"><div class="dl">Início preceito</div><div class="dv">${fmt(e.precStart)}</div></div>
-          <div class="di"><div class="dl">Dia da obrigação</div><div class="dv">${fmt(e.sat)} (${isIfa ? 'dom' : 'sáb'})</div></div>
+          <div class="di"><div class="dl">Dia da obrigação</div><div class="dv">${fmt(e.sat)} (${dayLabel})</div></div>
           <div class="di"><div class="dl">Encerramento</div><div class="dv">${isIfa ? fmt(e.sat)+' ao meio-dia' : fmt(e.sun)+' ao meio-dia'}</div></div>
           <div class="di"><div class="dl">Fase da lua</div><div class="dv">${moon.icon} ${moon.name}</div></div>
           <div class="di"><div class="dl">Lua ideal</div><div class="dv">${moonPrefLabel}</div></div>
@@ -1298,7 +1304,7 @@ function renderSchedule(sch, id) {
           return `<tr style="border-bottom:0.5px solid rgba(255,255,255,0.04);">
             <td style="padding:8px 8px;color:var(--text);white-space:nowrap;">${dot}${e.names.join(' & ')}${corTag}</td>
             <td style="padding:8px 8px;color:var(--text2);white-space:nowrap;">${precDay}</td>
-            <td style="padding:8px 8px;color:var(--text2);white-space:nowrap;">${isIfa ? fmt(e.sat) + ' (dom)' : fmt(e.sat) + ' (sáb)'}</td>
+            <td style="padding:8px 8px;color:var(--text2);white-space:nowrap;">${fmt(e.sat)} (${['dom','seg','ter','qua','qui','sex','sáb'][e.sat.getDay()]})</td>
             <td style="padding:8px 8px;text-align:center;font-size:15px;" title="${e.moon.name}">${e.moon.icon}${ok ? '' : '<span style="font-size:9px;color:#c09040;margin-left:2px;">⚠</span>'}</td>
             <td style="padding:8px 8px;color:var(--text3);white-space:nowrap;">${e.campo ? '🌿 ' : '🏠 '}${e.local}</td>
           </tr>`;

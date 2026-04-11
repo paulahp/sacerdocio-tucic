@@ -740,7 +740,7 @@ const ETAPAS_DEF = [
     bebidas: 'Champanhe branca, mel',
   },
   {
-    names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Mangue', campo: true,
+    names: ['Nanã', 'Obaluaê'], cores: ['#805090', '#606060'], preceito: 7, local: 'Terreiro', campo: false,
     intervalAfter: 21, moonPref: 'minguante', coroa: 'luciano',
     obs: 'Os dois no mesmo dia, no mangue. Nanã: Orixá de frente do Luciano. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral incluindo íntimas.',
     regras: 'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho.',
@@ -1167,8 +1167,9 @@ function renderOrdem() {
     </div>`;
 
     if (i < ETAPAS_DEF.length - 1) {
-      const connLabel = e.intervalAfter === 1 ? 'Ifá no dia seguinte' : `${e.intervalAfter} dias de intervalo`;
-      const connH = e.intervalAfter >= 30 ? '30px' : '18px';
+      const diasEntre = Math.round((FIXED_DATES[i+1] - FIXED_DATES[i]) / 86400000);
+      const connLabel = `${diasEntre} dias de intervalo`;
+      const connH = diasEntre >= 35 ? '28px' : '18px';
       html += `<div class="connector"><div class="conn-line" style="min-height:${connH};"></div><div class="conn-label">${connLabel}</div></div>`;
     }
   });

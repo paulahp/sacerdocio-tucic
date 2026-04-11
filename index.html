@@ -1167,10 +1167,7 @@ function renderOrdem() {
     </div>`;
 
     if (i < ETAPAS_DEF.length - 1) {
-      const diasEntre = Math.round((FIXED_DATES[i+1] - FIXED_DATES[i]) / 86400000);
-      const connLabel = `${diasEntre} dias de intervalo`;
-      const connH = diasEntre >= 35 ? '28px' : '18px';
-      html += `<div class="connector"><div class="conn-line" style="min-height:${connH};"></div><div class="conn-label">${connLabel}</div></div>`;
+      html += `<div class="connector"><div class="conn-line" style="min-height:14px;"></div></div>`;
     }
   });
   cont.innerHTML = html;

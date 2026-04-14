@@ -1050,7 +1050,9 @@ function gcalUrl(e) {
   const title = encodeURIComponent(`Sacerdócio — Obrigação: ${e.names.join(' & ')}`);
   const start = toGCalDate(e.sat);
   const end = toGCalDate(addDays(e.sat, 1));
-  const local = encodeURIComponent(e.local);
+  const endereço = e.campo
+    ? encodeURIComponent(e.local)
+    : encodeURIComponent('Servidão João Manoel Inácio - Vargem Grande, Florianópolis - SC, 88052-675');
   const details = encodeURIComponent(
     `Obrigação para ${e.names.join(' e ')} — Luciano & Paula\n\n` +
     `Local: ${e.local}\n` +
@@ -1059,7 +1061,7 @@ function gcalUrl(e) {
     `Dia da obrigação: ${fmt(e.sat)}\n\n` +
     `${e.obs}`
   );
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${local}`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${endereço}`;
 }
 
 // ═══════════════════════════════════════════════

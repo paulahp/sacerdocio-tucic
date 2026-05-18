@@ -87,23 +87,7 @@ footer .gold-line{margin:0 auto 16px;}
     <div class="header-ornament">☽ &nbsp; Umbanda &nbsp; ☾</div>
     <h1>Sacerdócio<br><em>de Umbanda</em></h1>
     <div class="header-sub">Organizador de Obrigações</div>
-    <div style="display:flex;gap:10px;align-items:stretch;justify-content:center;margin-top:18px;flex-wrap:wrap;">
-      <div class="coroa-badge" style="justify-content:center;flex:1;min-width:160px;max-width:220px;">
-        <div style="text-align:center;">
-          <div style="font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Luciano</div>
-          <div><span style="color:#805090;font-weight:500;">Nanã</span> &nbsp;·&nbsp; <span style="color:#804020;">Xangô</span></div>
-          <div style="font-size:10px;color:var(--text3);margin-top:3px;">frente &nbsp;·&nbsp; ajuntó</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;color:var(--text3);font-size:18px;">&amp;</div>
-      <div class="coroa-badge" style="justify-content:center;flex:1;min-width:160px;max-width:220px;">
-        <div style="text-align:center;">
-          <div style="font-size:10px;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Paula</div>
-          <div><span style="color:#c84040;font-weight:500;">Ogum</span> &nbsp;·&nbsp; <span style="color:#4080c8;">Iemanjá</span></div>
-          <div style="font-size:10px;color:var(--text3);margin-top:3px;">frente &nbsp;·&nbsp; ajuntó</div>
-        </div>
-      </div>
-    </div>
+
     <div class="gold-line"></div>
   </header>
 
@@ -136,7 +120,7 @@ footer .gold-line{margin:0 auto 16px;}
 
   <footer>
     <div class="gold-line"></div>
-    Que Ogum e Nanã abram os caminhos · Que Iemanjá e Xangô abençoem Paula e Luciano nesta jornada
+    Que os Orixás abram os caminhos e abençoem esta jornada
   </footer>
 </div>
 
@@ -180,8 +164,8 @@ const ETAPAS_DEF = [
   },
   {
     names:['Iansã','Xangô'],cores:['#c07820','#804020'],preceito:7,local:'Terreiro',campo:false,
-    moonPref:'nova',coroa:'luciano-ajunto',
-    obs:'Terreiro. Os dois no mesmo dia. Primeiro Iansã, depois Xangô. Orixá ajuntó do Luciano.',
+    moonPref:'nova',coroa:'ajunto',
+    obs:'Terreiro. Os dois no mesmo dia. Primeiro Iansã, depois Xangô.',
     regras:'Banho e defumação: 3 ervas de Iansã + 3 de Xangô. Xangô: 2 latas Caracu, quiabo (100g), mel, lírio.',
     velas:'Iansã: 7 amarelas + 7 brancas + 2 cera branca + 1 vela espada · Xangô: 7 marrom + 7 brancas + 2 cera branca · 1 bicolor verm/preta (Exu)',
     ervas:'Iansã: ervas de Iansã · Xangô: ervas de Xangô — ver apostila',
@@ -192,8 +176,8 @@ const ETAPAS_DEF = [
   },
   {
     names:['Nanã','Obaluaê'],cores:['#805090','#606060'],preceito:7,local:'Terreiro',campo:false,
-    moonPref:'minguante',coroa:'luciano',
-    obs:'Terreiro. Nanã: Orixá de frente do Luciano. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral incluindo íntimas.',
+    moonPref:'minguante',coroa:'coroa2',
+    obs:'Terreiro. Sem adornos, sem maquiagem, cabelos soltos. Roupa branca integral incluindo íntimas.',
     regras:'Apenas guia de Oxalá permitida. Banho: 3 ervas de Nanã + 3 de Obaluaê + azeite de dendê + pipocas. Ficar 3–5 min sem enxugar após o banho.',
     velas:'Nanã: 7 roxas + 7 brancas + 2 cera branca + 1 vela 7 dias roxa · Obaluaê: 7 pretas + 7 brancas + 2 cera branca + 1 vela 7 dias bicolor · 1 bicolor verm/preta (Exu)',
     ervas:'Nanã: manacá, alfavaca, avenca, cana-do-brejo · Obaluaê: ervas de Obaluaê — ver apostila',
@@ -205,7 +189,7 @@ const ETAPAS_DEF = [
   {
     names:['Ogum','Iemanjá'],cores:['#c03030','#3070c0'],preceito:7,local:'Praia',campo:true,
     moonPref:'cheia',coroa:'voce',
-    obs:'Orixás de coroa da Paula! Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia.',
+    obs:'Orixás de coroa! Os dois na praia. Primeiro Ogum (frente), depois Iemanjá (ajuntó). Preferencialmente ao final do dia.',
     regras:'Ervas: prioridade para Ogum. Barquinho de Iemanjá obrigatoriamente de madeira ou material orgânico — sem isopor.',
     velas:'Ogum: 7 vermelhas + 7 brancas + 2 cera branca · Iemanjá: 7 azul claro + 7 brancas + 2 cera branca + 1 vela vermelha nº4 · 1 bicolor verm/preta (Exu)',
     ervas:'Ogum: ervas de Ogum · Iemanjá: ervas de Iemanjá — ver apostila',
@@ -330,9 +314,9 @@ function moonPrefLabel(p){
 }
 
 function coroaTag(c){
-  if(c==='voce')return'<span style="font-size:11px;color:#c84040;margin-left:6px;">★ coroa da Paula — Ogum/Iemanjá</span>';
-  if(c==='luciano')return'<span style="font-size:11px;color:#805090;margin-left:6px;">★ coroa do Luciano — Nanã</span>';
-  if(c==='luciano-ajunto')return'<span style="font-size:11px;color:#804020;margin-left:6px;">★ ajuntó do Luciano — Xangô</span>';
+  if(c==='voce')return'';
+  if(c==='coroa2')return'';
+  if(c==='ajunto')return'';
   return'';
 }
 
@@ -342,7 +326,7 @@ function gcalUrl(e){
   const title=encodeURIComponent('Sacerdócio — '+e.names.join(' & '));
   const start=toGCalDate(e.sat),end=toGCalDate(addDays(e.sat,1));
   const loc=encodeURIComponent(e.campo?e.local:TERREIRO);
-  const det=encodeURIComponent('Obrigação: '+e.names.join(' e ')+' — Luciano & Paula\nLocal: '+e.local+'\nLua: '+e.moon.icon+' '+e.moon.name+'\nPreceito: '+fmt(e.precStart)+'\nObrigação: '+fmt(e.sat));
+  const det=encodeURIComponent('Obrigação: '+e.names.join(' e ')+'\nLocal: '+e.local+'\nLua: '+e.moon.icon+' '+e.moon.name+'\nPreceito: '+fmt(e.precStart)+'\nObrigação: '+fmt(e.sat));
   return'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+title+'&dates='+start+'/'+end+'&details='+det+'&location='+loc;
 }
 
@@ -364,7 +348,7 @@ function renderOrdem(){
   const cont=document.getElementById('etapas-container');
   let html='';
   ETAPAS_DEF.forEach((e,i)=>{
-    const nameHtml=e.names.join(' &amp; ')+(e.coroa?'<span style="color:var(--gold);font-size:13px;"> ★</span>':'');
+    const nameHtml=e.names.join(' &amp; ');
     const ctag=coroaTag(e.coroa);
     const bcls=e.campo?'badge-campo':'badge-terreiro';
     const bico=e.campo?'🌿':'🏠';
@@ -407,7 +391,7 @@ function renderSchedule(sch,id){
     const isIfa=i===sch.length-1;
     const bcls=e.campo?'badge-campo':'badge-terreiro';
     const bico=e.campo?'🌿':'🏠';
-    const nameHtml=e.names.join(' &amp; ')+(e.coroa?' ★':'');
+    const nameHtml=e.names.join(' &amp; ');
     const ctag=coroaTag(e.coroa);
     const precLabel=e.preceito===3?'Início preceito: '+fmt(e.precStart):isIfa?'Preceito contínuo de Exu → '+fmt(e.sat):'Início preceito: '+fmt(e.precStart);
     html+=`<div class="etapa" id="${id}et${i}">
@@ -450,16 +434,7 @@ function renderSchedule(sch,id){
   const okCount=sch.filter(e=>moonOk(e.moon,e.moonPref)).length;
   html+=`<div class="card" style="margin-top:20px;">
     <div class="card-title">Visão geral — 2026</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;">
-      <div style="background:var(--bg3);border:0.5px solid rgba(128,80,144,0.3);border-radius:var(--radius);padding:10px 12px;font-size:12px;">
-        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Luciano</div>
-        <span style="color:#805090;font-weight:500;">Nanã</span> (frente) &nbsp;·&nbsp; <span style="color:#804020;">Xangô</span> (ajuntó)
-      </div>
-      <div style="background:var(--bg3);border:0.5px solid rgba(200,64,64,0.3);border-radius:var(--radius);padding:10px 12px;font-size:12px;">
-        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Paula</div>
-        <span style="color:#c84040;font-weight:500;">Ogum</span> (frente) &nbsp;·&nbsp; <span style="color:#3070c0;">Iemanjá</span> (ajuntó)
-      </div>
-    </div>
+
     <table style="width:100%;border-collapse:collapse;font-size:12px;">
       <thead><tr style="border-bottom:0.5px solid var(--border);">
         <th style="text-align:left;padding:6px 8px;font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Etapa</th>
@@ -472,7 +447,7 @@ function renderSchedule(sch,id){
         ${sch.map(e=>{
           const ok2=moonOk(e.moon,e.moonPref);
           const dot=`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${e.cores[0]};margin-right:6px;"></span>`;
-          const ct=e.coroa==='voce'?' <span style="font-size:10px;color:#c84040;">★P</span>':e.coroa==='luciano'?' <span style="font-size:10px;color:#805090;">★L</span>':e.coroa==='luciano-ajunto'?' <span style="font-size:10px;color:#804020;">★L</span>':'';
+          const ct='';
           return`<tr style="border-bottom:0.5px solid rgba(255,255,255,0.04);">
             <td style="padding:8px;color:var(--text);white-space:nowrap;">${dot}${e.names.join(' & ')}${ct}</td>
             <td style="padding:8px;color:var(--text2);white-space:nowrap;">${fmt(e.precStart)}</td>
